@@ -1,0 +1,244 @@
+﻿@model SMEPanel.Models.Universal
+
+@{
+    ViewBag.Title = "Detailsforrequest";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<h2>Detailsforrequest</h2>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<div class="page-content page-thin">
+    <div class="modal-body">
+
+        <div class="row">
+            @foreach (var item in Model.objuserprofile)
+            {
+                var picimage = item.FileName;
+                var pi = picimage.Remove(0,15);
+              
+                <div class="col-md-3 col-lg-2 " align="center">
+
+                    <div class="col-md-3 col-lg-3 " align="center">
+                        <img id="imageprv" src="http://www.mshipper.com/ClientImages/@pi" width="145" height="145" />
+                    </div>
+                </div>
+
+                <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+                  <dl>
+                    <dt>DEPARTMENT:</dt>
+                    <dd>Administrator</dd>
+                    <dt>HIRE DATE</dt>
+                    <dd>11/12/2013</dd>
+                    <dt>DATE OF BIRTH</dt>
+                       <dd>11/12/2013</dd>
+                    <dt>GENDER</dt>
+                    <dd>Male</dd>
+                  </dl>
+                </div>-->
+
+                <div class="col-md-9 col-lg-9">
+                    <div class="table-responsive">
+                        <table class="table table-hover ">
+                            <tbody>
+
+                                <tr>
+                                    <td>Name</td>
+                                    <td>@item.Name</td>
+                                </tr>
+                                @*<tr>
+                                    <td>Location</td>
+                                    <td id="locationprv">@item.P_Location</td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td id="addressprv">@item.P_Address</td>
+                                </tr>*@
+
+                                <tr></tr>
+                                <tr>
+                                    <td>Mobile number</td>
+                                    <td id="altmobileprv">@item.Alt_Mobileno</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td id="addressprv">@item.Email </td>
+                                </tr>
+                                <tr>
+                                    <td>Pincode</td>
+                                    <td id="mobileprv">@item.PinCode</td>
+                                </tr>
+                                <tr>
+                                    <td>Zone</td>
+                                    <td id="altmobileprv">@item.District</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Age</td>
+                                    <td id="pincodeprv">@item.age</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Education</td>
+                                    <td id="zoneprv">@item.education</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Profession</td>
+                                    <td id="zoneprv">@item.profession</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Company</td>
+                                    <td id="zoneprv">@item.company</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Company profile</td>
+                                    <td id="zoneprv">@item.company_profile</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Delivered package</td>
+                                    <td id="zoneprv">@ViewBag.count</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            }
+        </div>
+
+
+
+    </div>
+    @*<div class="modal-footer text-center">
+
+        <button type="button" id="btnOk" name="btnOk" class="btn btn-primary btn-embossed bnt-square">Back</button>
+    </div>*@
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $("#btnOk").click(function () {
+                    window.location.href ='@Url.Action("shipperrequist", "dashboard")';
+                });
+            });
+    </script>
+    @*<div class="modal-body">
+
+        <div class="row">
+
+                <div class="col-md-3 col-lg-2 " align="center">
+
+                    <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="~/Images/index.jpg" class="img-circle img-responsive"> </div>
+                </div>*@
+
+    <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+      <dl>
+        <dt>DEPARTMENT:</dt>
+        <dd>Administrator</dd>
+        <dt>HIRE DATE</dt>
+        <dd>11/12/2013</dd>
+        <dt>DATE OF BIRTH</dt>
+           <dd>11/12/2013</dd>
+        <dt>GENDER</dt>
+        <dd>Male</dd>
+      </dl>
+    </div>-->
+    @*<div class="col-md-9 col-lg-9">
+                    <div class="table-responsive">
+                        <table class="table table-hover ">
+                            <tbody>
+
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Manoj</td>
+                                </tr>
+                                <tr>
+                                    <td>Location</td>
+                                    <td id="locationprv">Jalgaon</td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td id="addressprv">Jalgaon</td>
+                                </tr>
+
+                                <tr></tr>
+                                <tr>
+                                    <td>Mobile number</td>
+                                    <td id="altmobileprv">7709109676</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td id="addressprv">manoj@gmail.com</td>
+                                </tr>
+                                <tr>
+                                    <td>Pincode</td>
+                                    <td id="mobileprv">425111</td>
+                                </tr>
+                                <tr>
+                                    <td>Zone</td>
+                                    <td id="altmobileprv">Jalgaon</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Age</td>
+                                    <td id="pincodeprv">25</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Education</td>
+                                    <td id="zoneprv">MCA</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Profession</td>
+                                    <td id="zoneprv">Profession</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Company</td>
+                                    <td id="zoneprv">Spieler</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Company profile</td>
+                                    <td id="zoneprv">Company_profile</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="modal-footer text-center">
+
+            <button type="button" id="btnOk" class="btn btn-primary btn-embossed bnt-square" >Ok</button>
+        </div>*@
+
+
+
+</div>
+
+<div class="footer">
+    <div class="copyright">
+        <p class="pull-left sm-pull-reset">
+            <span>Copyright <span class="copyright">©</span> 2015 </span>
+            <span>mShipper</span>.
+            <span>All rights reserved. </span>
+        </p>
+        <p class="pull-right sm-pull-reset">
+            <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+        </p>
+    </div>
+</div>

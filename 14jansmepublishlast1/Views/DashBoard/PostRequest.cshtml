@@ -1,0 +1,223 @@
+﻿@model SMEPanel.Models.Universal
+
+@{
+    ViewBag.Title = "PostRequest";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<style type="text/css">
+    .paging-nav {
+        text-align: right;
+        padding-top: 2px;
+    }
+
+        .paging-nav a {
+            margin: auto 1px;
+            text-decoration: none;
+            display: inline-block;
+            padding: 1px 7px;
+            background: #91b9e6;
+            color: white;
+            border-radius: 3px;
+        }
+
+        .paging-nav .selected-page {
+            background: #187ed5;
+            font-weight: bold;
+        }
+
+   
+</style>
+
+
+
+
+
+
+
+<h2>PostRequest</h2>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+        $(document).ready(function(){
+            $('#data').after('<div id="nav"></div>');
+            var rowsShown = 5;
+            var rowsTotal = $('#data tbody tr').length;
+            var numPages = rowsTotal/rowsShown;
+            for(i = 0;i < numPages;i++) {
+                var pageNum = i + 1;
+                $('#nav').append('<a href="#" rel="'+i+'">'+pageNum+'</a> ');
+            }
+            $('#data tbody tr').hide();
+            $('#data tbody tr').slice(0, rowsShown).show();
+            $('#nav a:first').addClass('active');
+            $('#nav a').bind('click', function(){
+
+                $('#nav a').removeClass('active');
+                $(this).addClass('active');
+                var currPage = $(this).attr('rel');
+                var startItem = currPage * rowsShown;
+                var endItem = startItem + rowsShown;
+                $('#data tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
+                        css('display','table-row').animate({opacity:1}, 300);
+            });
+        });
+</script>
+<style>
+    .active {
+        background: red;
+    }
+</style>
+
+<div class="page-content page-thin">
+    @*<form action="@Url.Action("AllPosts","DashBoard")" method="post" enctype="multipart/form-data">*@
+        <div class="row">
+            <div class="row">
+                <div class="col-lg-12 portlets">
+                    <div class="panel">
+                        <div class="panel-header panel-controls">
+                            <h3><i class="fa fa-table"></i> <strong> Package Request </strong> </h3>
+                        </div>
+                        <div class="panel-content">
+                            <div class="filter-left">
+                                <table  class="table table-hover " id="data">
+                                    <thead>
+                                        <tr>
+                                            <th>Package Id</th>
+                                            <th>Store Name</th>
+                                            <th class='hidden-350'>Reciever Mobile</th>
+                                            <th>Reciever Name</th>                                           
+                                            <th class='hidden-350'>Address</th>
+                                            <th class='hidden-350'>From Date</th>
+                                            <th class='hidden-350'>To Date</th>
+                                            <th class='hidden-350'>Request</th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Package Id</th>
+                                            <th>Store Name</th>
+                                            <th class='hidden-350'>Reciever Mobile</th>
+                                            <th>Reciever Name</th>                                           
+                                            <th class='hidden-350'>Address</th>
+                                            <th class='hidden-350'>From Date</th>
+                                            <th class='hidden-350'>To Date</th>
+                                            <th class='hidden-350'>Request</th>
+                                           
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+
+                                        @foreach (var item in Model.objsubsmesendpost)
+                                        {
+                                        <form action="@Url.Action("shipperrequist","DashBoard")" method="post">
+                                            @Html.HiddenFor(modelItem => item.subshop_name, new { @class = "name" + @item.post_id })
+                                            @Html.HiddenFor(modelItem => item.subreciever_name, new { @class = "rname" + @item.post_id })
+                                            @Html.HiddenFor(modelItem => item.submobileno, new { @class = "mobile" + @item.post_id })
+                                            @Html.HiddenFor(modelItem => item.subsme_email, new { @class = "email" + @item.post_id })
+                                            @Html.HiddenFor(modelItem => item.subdel_location, new { @class = "dlocation" + @item.post_id })
+                                            @Html.HiddenFor(modelItem => item.subaddress, new { @class = "address" + @item.post_id })
+                                            @Html.HiddenFor(modelItem => item.from_date, new { @class = "fdate" + @item.post_id })
+                                            @Html.HiddenFor(modelItem => item.to_date, new { @class = "tdate" + @item.post_id })
+                                            @Html.HiddenFor(modelItem => item.category, new { @class = "category" + @item.post_id })
+                                            @Html.HiddenFor(modelItem => item.package_cost, new { @class = "pcost" + @item.post_id })
+                                            @Html.HiddenFor(modelItem => item.parcel_image, new { @class = "pimage" + @item.post_id })
+
+                                            <tr id="@Html.DisplayFor(modelItem=>item.submobileno)">
+                                                <td>@Html.DisplayFor(modelItem => item.post_id)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.subshop_name)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.submobileno)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.subreciever_name)</td>                                                
+                                                <td>@Html.DisplayFor(modelItem => item.subaddress)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.from_date)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.to_date)</td>
+                                            
+                                                <td>
+                                                    <input type="text" readonly="readonly" hidden="hidden" name="id" id="id" value="@item.post_id" />
+                                                
+                                                    <input id="Submit1" type="submit" value="Show Request" class="btn btn-success" />
+                                                    
+
+                                                </td>
+                                            </tr>
+                                    </form>
+                                        }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+
+
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <script src="~/assets/js/paging.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function() {
+                $('#tableData').paging({
+
+                    limit: 5,
+                    rowDisplayStyle: 'block',
+                    activePage: 0,
+                    rows: []
+
+                });
+            });
+    </script>
+
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    $(".edit").click(function () {
+                        var id = $(this).attr('id');
+                        document.getElementById("editid").value = id;
+                        $.ajax({
+                            url: '/dashboard/PostRequest',
+                            data: { 'id': id },
+                            cache: false,
+                            type: 'post',
+                            success: function (data) {
+                               
+                            }
+                        })
+                    });
+                });
+            </script>
+            @*get id of delete button*@
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $(".delete").click(function () {
+                        
+                        document.getElementById("deleteid").value = $(this).attr('id');
+                    });
+                });
+            </script>
+        <script type="text/javascript">
+
+            $('#example').dataTable({
+               
+            });
+    </script>
+
+    @*</form>*@      
+    </div>
+
+    <div class="footer">
+        <div class="copyright">
+            <p class="pull-left sm-pull-reset">
+                <span>Copyright <span class="copyright">©</span> 2015 </span>
+                <span>mShipper</span>.
+                <span>All rights reserved. </span>
+            </p>
+            <p class="pull-right sm-pull-reset">
+                <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+            </p>
+        </div>
+    </div>
+
+

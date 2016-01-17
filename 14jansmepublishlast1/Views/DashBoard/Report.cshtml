@@ -1,0 +1,181 @@
+﻿@model SMEPanel.Models.Universal
+
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<h2>Report</h2>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+   <!-- BEGIN PAGE CONTENT -->
+<div class="page-content page-thin">
+
+    <div class="row">
+        <div class="">
+
+            <div class="col-lg-12">
+                <div class="panel panel-default no-bd">
+                    <div class="panel-header bg-dark">
+                        <h2 class="panel-title"><strong>Report</strong> </h2>
+                    </div>
+                    <div class="panel-body bg-white">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <script>
+
+                                    $(function () {
+
+                                        $('#datefrom').datepicker({
+                                           
+                                           
+                                            onSelect: function (selected) {
+                                                var dt = new Date(selected);
+                                                dt.setDate(dt.getDate() +1);
+                                                $('#dateto').datepicker("option", "minDate", dt);
+                                            }
+                                        });
+                                        $('#dateto').datepicker({
+                                          
+                                           
+                                            onSelect: function (selected) {
+                                                var dt = new Date(selected);
+                                                dt.setDate(dt.getDate() -1);
+                                                $('#datefrom').datepicker("option", "maxDate", dt);
+                                            }
+                                        });
+
+                                    });
+                                </script>
+
+                                <form action="@Url.Action("Report","DashBoard")" method="post">
+                                    <div class="row">
+
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Date From</label>
+                                                    <script type="text/javascript">
+                                                        //$(document).ready(function () {
+                                                        //    $("#datefrom").datepicker({ dateFormat: 'yy-mm-dd' });
+                                                        //});
+                                                    </script>
+
+                                                    <div class="prepend-icon">
+                                                        <input type="text" name="datefrom" id="datefrom" class="datetimepicker form-control" placeholder="Choose a date..." required="required">
+                                                        <i class="icon-clock"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <script type="text/javascript">
+                                                        //$(document).ready(function () {
+                                                        //    $("#dateto").datepicker({ dateFormat: 'yy-mm-dd' });
+                                                        //});
+                                                </script>
+                                                <div class="form-group">
+                                                    <label class="form-label">Date To</label>
+                                                    <div class="prepend-icon">
+                                                        <input type="text" name="dateto" id="dateto" class="datetimepicker form-control" placeholder="Choose a date..." required="required">
+                                                        <i class="icon-clock"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="text-center  m-t-20">
+                                        <input type="submit" name="report" id="report" class="btn btn-embossed btn-primary" value="Submit"/>
+                                        <button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class=" portlets">
+                        <div class="panel">
+                            <div class="panel-header panel-controls">
+                                <h3><i class="fa fa-table"></i> <strong>Report</strong></h3>
+                            </div>
+                            <div class="panel-content pagination2 table-responsive">
+                                <table class="table table-hover table-dynamic">
+                                    <thead>
+                                        <tr>
+                                            <th>Store Name</th>
+                                            <th>Receiver Name</th>
+                                            <th class='hidden-350'>From Date</th>
+                                            <th class='hidden-350'>To Date</th>
+                                            <th class='hidden-350'>Shipping Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Store Name</th>
+                                            <th>Receiver Name</th>
+                                            <th class='hidden-350'>From Date</th>
+                                            <th class='hidden-350'>To Date</th>
+                                            <th class='hidden-350'>Shipping Cost</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach (var item in Model.objsubsmesendpost)
+                                        {
+                                            float cost = item.package_cost;
+                                            float ct = cost * 20 / 80;
+                                            Int32 finalcost =Convert.ToInt32(cost + ct);
+                                        <tr id="@Html.DisplayFor(modelItem=>item.submobileno)"></tr>
+                                        <td>@Html.DisplayFor(modelItem => item.subshop_name)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.subreciever_name)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.from_date)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.to_date)</td>
+
+                                        <td>@finalcost</td>
+                                        @*<td>
+                                        <a class="edit btn btn-sm btn-default" href=""><i class="icon-note"></i></a>
+                                        </td>*@
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="footer">
+        <div class="copyright">
+            <p class="pull-left sm-pull-reset">
+                <span>Copyright <span class="copyright">©</span> 2015 </span>
+                <span>mShipper</span>.
+                <span>All rights reserved. </span>
+            </p>
+            <p class="pull-right sm-pull-reset">
+                <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+            </p>
+        </div>
+    </div>
+</div>
+<!-- END PAGE CONTENT -->

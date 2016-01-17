@@ -1,0 +1,573 @@
+﻿@model SMEPanel.Models.Universal
+
+@{
+    ViewBag.Title = "AllShops";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<h2>AllShops</h2>
+  <!-- BEGIN PAGE CONTENT -->
+<script>
+        $(document).ready(function(){
+            $('#data').after('<div id="nav"></div>');
+            var rowsShown = 5;
+            var rowsTotal = $('#data tbody tr').length;
+            var numPages = rowsTotal/rowsShown;
+            for(i = 0;i < numPages;i++) {
+                var pageNum = i + 1;
+                $('#nav').append('<a href="#" rel="'+i+'">'+pageNum+'</a> ');
+            }
+            $('#data tbody tr').hide();
+            $('#data tbody tr').slice(0, rowsShown).show();
+            $('#nav a:first').addClass('active');
+            $('#nav a').bind('click', function(){
+
+                $('#nav a').removeClass('active');
+                $(this).addClass('active');
+                var currPage = $(this).attr('rel');
+                var startItem = currPage * rowsShown;
+                var endItem = startItem + rowsShown;
+                $('#data tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
+                        css('display','table-row').animate({opacity:1}, 300);
+            });
+        });
+</script>
+<style>
+    .active {
+        background: red;
+    }
+</style>
+
+
+<div class="page-content page-thin">
+    <form action= "@Url.Action("AllShops","DashBoard")" method="post">
+        <div class="row">
+            <div class="row">
+                <div class="col-lg-12 portlets">
+                    <div class="panel">
+                        <div class="panel-header panel-controls">
+                            <h3><i class="fa fa-table"></i> <strong> My Stores </strong> </h3>
+                        </div>
+                        <input type="hidden" id="msg" name="msg" value="@ViewBag.msg" />
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                if($("#msg").val()=="" || $("#msg").val()==null)
+                                {
+                                    
+                                }
+                                else
+                                {
+                                    swal("Your shop successfully updated");
+                                }
+
+                            });
+                        </script>
+                        @foreach (var item in Model.objaddsmes)
+                        {
+                            <input type="hidden" id="mainshop" name="mainshop" value="@item.shopname" /> @*check main shop*@
+                        }
+                        
+                        <div class="panel-content">
+                            <div class="filter-left">
+                                <table class="table table-hover" id="data">
+                                    <thead>
+                                        <tr>
+                                            <th>Store Name</th>
+                                            <th>Location</th>
+                                            <th class='hidden-350'>Address</th>
+                                            <th class='hidden-350'>Mobile</th>
+                                            <th class='hidden-350'>Pin</th>
+                                            <th class='hidden-350'>Zone</th>
+                                            <th class='hidden-350'>Created Date</th>
+                                            <th class='hidden-350'>Edit/Delele</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in Model.objsubsme)
+                                        {
+                                            <input type="hidden" id="mainshop1" name="mainshop1" value="@ViewBag.shopname" /> @*check main shop*@
+
+                                        @Html.HiddenFor(modelItem => item.subsme_name, new { @class = "name" + @item.subsme_id })
+                                        @Html.HiddenFor(modelItem => item.subsme_email, new { @class = "email" + @item.subsme_id })
+                                        @Html.HiddenFor(modelItem => item.subsme_shopname, new { @class = "shopname" + @item.subsme_id })
+                                        @Html.HiddenFor(modelItem => item.subsme_location, new { @class = "location" + @item.subsme_id })
+                                        @Html.HiddenFor(modelItem => item.subsme_address, new { @class = "address" + @item.subsme_id })
+                                        @Html.HiddenFor(modelItem => item.subsme_mobile, new { @class = "mobile" + @item.subsme_id })
+                                        @Html.HiddenFor(modelItem => item.subsme_zone, new { @class = "zone" + @item.subsme_id })
+                                            @Html.HiddenFor(modelItem => item.subsme_pin, new { @class = "pin" + @item.subsme_id })
+                                            <tr id="@Html.DisplayFor(modelItem=>item.subsme_mobile)">
+                                                <td>@Html.DisplayFor(modelItem => item.subsme_shopname)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.subsme_location)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.subsme_address)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.subsme_mobile)</td>
+                                                @Html.HiddenFor(modelItem => item.subsme_altmobile, new { @class = "altmobile" + @item.subsme_id })
+                                                <td>@Html.DisplayFor(modelItem => item.subsme_pin)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.subsme_zone)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.subsme_createddate)</td>
+                                                <td>
+                                              
+                                                    <a class="edit btn btn-sm btn-default" href="/DashBoard/AddShops?id=@item.subsme_id" data-toggle="modal" data-target="#modal-responsive" new { id="@item.subsme_id" } name="Edit"><i class="icon-note"></i></a>
+                                                    
+                                                
+                                                    <a class="delete btn btn-sm btn-danger" href="#modal-slideright?id=@item.subsme_id" @*data-toggle="modal" data-target="#modal-slideright"*@ new { id="@item.subsme_id" } name="Edit"><i class="icons-office-52"></i></a>
+                                                </td>
+                                                
+                                               
+                                                
+                                            </tr>
+                                        }
+
+                                        </tbody>
+                                    </table>
+                                    
+                                @*fill perticular recored to controls*@    
+                                <script type="text/javascript">
+                                        $(document).ready(function () {
+                                            $(".edit").click(function () {
+                                                var id = $(this).attr('id');
+                                                var pin=$(".pin" + id).val();
+                                                document.getElementById("pinLabel").innerHTML = "Your previous pincode:" + pin;
+                                                document.getElementById("prvpincode").value = pin;
+                                               
+                                                document.getElementById("editid").value = id;
+          
+                                                document.getElementById("name").value = $(".name" + id).val();
+                                                document.getElementById("email").value = $(".email" + id).val();
+                                                
+                                                document.getElementById("shopname").value = $(".shopname" + id).val();
+                                                document.getElementById("location").value = $(".location" + id).val();
+                                                document.getElementById("address").value = $(".address" + id).val();
+                                                document.getElementById("mobile").value = $(".mobile" + id).val();
+                                                document.getElementById("altmobile").value = $(".altmobile" + id).val();
+                                               
+                                                document.getElementById("zone").value = $(".zone" + id).val();                                                
+                                                
+                                               
+                                            });
+                                        });
+
+                                    </script>
+                               
+                                <link href="~/assets/sweetalert.css" rel="stylesheet" />
+                                <script src="~/assets/sweetalert.min.js"></script>
+                                @*get id of delete button*@
+                                <script type="text/javascript">
+                                    $(document).ready(function () {
+                                        $(".delete").click(function () {
+                                            document.getElementById("deleteid").value = $(this).attr('id');
+                                            var id = $(this).attr('id');
+                                            var mainshop = $("#mainshop").val();
+
+                                            //alert(mainshop);
+                                            if (mainshop == $(".shopname" + id).val())
+                                            {
+                                                swal("You can't delete this shop");
+                                                return false;
+                                            }
+                                            else
+                                            {
+                                                //$("#mainshop").val("");
+                                                $('#modal-slideright').modal('toggle');
+                                                $('#modal-slideright').modal('show');
+                                                return true;
+                                                
+                                            }
+                                            
+                                            
+                                        });
+                                    });  
+                                </script>
+                             
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         <style>
+       
+         </style>
+
+        
+            <div class="modal fade" id="modal-responsive" style=" z-index: 2; " aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                            <h4 class="modal-title"><strong>Update</strong> Store</h4>
+                        </div>
+                        <input type="hidden" name="editid" id="editid" />
+                        <input type="hidden" name="deleteid" id="deleteid" />
+                        <input type="hidden" name="prvpincode" id="prvpincode" />
+                        <div class="modal-body">
+                        
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="field-1" class="control-label">Name</label>
+                                        <input type="text" class="form-control" onblur="validateName()" id="name" name="name" placeholder="Name">
+                                    </div>
+                                    <div id="name-error" style="color:red"></div>
+                                    <script type="text/javascript">
+                                        function validateName() {
+                                        if($("#name").val()=="")
+                                        {
+                                            $("#name-error").html("Please enter name");
+                                        }
+                                        else
+                                        {
+                                            $("#name-error").html("");
+                                        }
+                                    }
+                                    </script>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="field-2" class="control-label">Email</label>
+                                        <input type="text" class="form-control"  id="email" onblur="ValidateEmail(this);" name="email" placeholder="email">
+                                    </div>
+                                    <div id="Email-error" style="color:red"></div>
+                                    <script>
+
+                                            $(document).ready(function () {
+                                                $("#email").keypress(function (e) {
+                                                    if (e.which===32) {
+
+                                                        return false;
+                                                    }
+                                                });
+                                            });
+                                    </script>
+                                    <script type="text/javascript">
+                                            function ValidateEmail(inputText) {
+                                                var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                                                if (inputText.value.match(mailformat)) {
+                                                    $("#Email-error").html("");
+                                                    //document.form1.text1.focus();
+                                                    return true;
+                                                }
+                                                else {
+                                                    $("#Email-error").html("You have entered an invalid email address!");
+                                                    //document.form1.text1.focus();
+                                                    return false;
+                                                }
+                                            }
+                                            $(document).ready(function () {
+
+                                                $("#email").blur(function () {
+                                                    var a = $("#email").val();
+                                                    var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                                                    if (a.match(mailformat)) {
+                                                        $("#Email-error").html("");
+                                                        //document.form1.text1.focus();
+                                                        return true;
+                                                    }
+                                                    else {
+                                                        $("#email").val(" ");
+                                                        $("#Email-error").html("You have entered an invalid email address!");
+                                                        //document.form1.text1.focus();
+                                                        return false;
+                                                    }
+                                                });
+                                            });
+                                    </script>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="field-2" class="control-label">Store Name</label>
+                                        <input type="text" class="form-control" id="shopname" onblur="validateSname()" readonly="readonly" name="shopname" placeholder="Shop Name">
+                                    </div>
+                                    <div id="error-shopname" style="color:red"></div>
+                                    <script type="text/javascript">
+                                    function validateSname(){
+                                        if($("#shopname").val()=="")
+                                        {
+                                            $("#error-shopname").html("Please enter shop name");
+                                        }
+                                        else
+                                        {
+                                            $("#error-shopname").html("");
+                                        }
+                                    }
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="field-3" class="control-label">Location</label>
+                                        <input type="text" class="form-control"  name="location" onblur="validateLocation()" id="location" /> 
+                                    </div>
+                                    <div id="location-error" style="color:red"></div>
+                                    <script type="text/javascript">
+                                    function validateLocation(){
+                                        if ($("#location").val() == "")
+                                        {
+                                            $("#location-error").html("Please enter location");
+                                        }
+                                        else
+                                        {
+                                            $("#location-error").html("");
+                                        }
+                                    }
+                                    </script>
+       <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+   <script type="text/javascript">
+        google.maps.event.addDomListener(window, 'load', function () {
+            var places = new google.maps.places.Autocomplete(document.getElementById('location'));
+            google.maps.event.addListener(places, 'place_changed', function () {
+                var place = places.getPlace();
+                var address = place.formatted_address;
+                var latitude = place.geometry.location.A;
+                var longitude = place.geometry.location.F;
+                var mesg = "Address: " + address;
+                mesg += "\nLatitude: " + latitude;
+                mesg += "\nLongitude: " + longitude;
+               // alert(mesg);
+            });
+        });
+    </script>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="field-3" class="control-label">Address</label>
+                                        <input type="text" class="form-control" id="address" name="address" onblur="validateAddress()" placeholder="Address">
+                                    </div>
+                                    <div id="address-error" style="color:red"></div>
+                                    <script type="text/javascript">
+                                        function validateAddress() {
+                                        if ($("#address").val() == "")
+                                        {
+                                            $("#address-error").html("Please enter address");
+                                        }
+                                        else
+                                        {
+                                            $("#address-error").html("");
+                                        }
+                                    }
+                                    </script>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="field-4" class="control-label">Mobile</label>
+                                        <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile">
+                                    </div>
+                                    <div id="Mobile-error" style="color:red"></div>
+                                    <script>
+                                            $(document).ready(function () {
+                                                $("#mobile").keypress(function (e) {
+                                                    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                                                        $("#Mobile-error").html("Digits Only").show().fadeOut("slow");
+                                                        return false;
+                                                    }
+                                                });
+
+                                                $("#mobile").blur(function () {
+                                                    var phone = $("#mobile").val();
+                                                   //alert($("#mobile").val());
+
+                                                   if (mobile.value.length <= 9 || mobile.value.length >= 11) {
+                                                       $("#Mobile-error").html('Please enter valid mobile no');
+
+                                                       $("#mobile").val(null);
+
+                                                           return false;
+                                                   }
+                                                   else {
+
+                                                       $("#Mobile-error").html("");
+                                                   }
+
+                                               });
+                                           });
+                                           function validatePhone(phoneText) {
+                                               var filter = /[0-9]|\./;
+                                               var space = /\s+/;
+                                               if (filter.test(phoneText)) {
+                                                   return true;
+                                               }
+                                               else {
+                                                   return false;
+                                               }
+                                               if (space.test(phoneText)) {
+                                                   return true;
+
+                                               }
+                                               else {
+                                                   return false;
+                                               }
+                                           }
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="field-4" class="control-label">Alternate Mobile</label>
+                                        <input type="text" class="form-control" id="altmobile" name="altmobile" onblur="validatealtPhone()" placeholder="Alternate Mobile">
+                                    </div>
+                                    <div id="altmobile-error" style="color:red"></div>
+                                    <script>
+                                            $(document).ready(function () {
+                                                $("#altmobile").keypress(function (e) {
+                                                    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                                                        $("#altmobile-error").html("Digits Only").show().fadeOut("slow");
+                                                        return false;
+                                                    }
+                                                });
+                                               $("#altmobile").blur(function () {
+                                                   var phone = $("#altmobile").val();
+                                                   //alert($("#altmobile").val());
+
+                                                   if (altmobile.value.length<= 9 || altmobile.value.length >= 11) {
+                                                       $("#altmobile-error").html('Please enter valid mobile no');
+
+                                                           $("#altmobile").val(null);
+
+
+
+                                                           return false;
+                                                   }
+                                                   else {
+                                                       $("#altmobile-error").html("");
+                                                   }
+
+                                               });
+                                           });
+                                           function validatealtPhone(phone) {
+                                               var filter = /^[0-9\b]+$/;
+                                               var space = /\s+/;
+                                               if (filter.test(phone)) {
+                                                   return true;
+                                               }
+                                               else {
+                                                   return false;
+                                               }
+                                               if (space.test(phone)) {
+                                                   return true;
+
+                                               }
+                                               else {
+                                                   return false;
+                                               }
+                                           }
+                                    </script>
+                                </div>
+                               <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label  id="pinLabel" name="pinLabel" ></label>
+                                        <select class="form-control" name="pin" id="pin" data-search="true">
+                                            <option value="">Select Pincode</option>
+                                            @foreach (var itempincode in Model.objpincode)
+                                            {
+                                                <option value="@itempincode.PinCode">@itempincode.PinCode</option>
+                                            }
+                                        </select>
+
+
+
+                                    </div>
+                                </div>
+
+
+
+
+                                <input type="hidden" name="hidepin" id="hidepin" />
+
+                                <script>
+                                        $(document).ready(function () {
+
+                                            $("#pin").change(function () {
+                                                //document.getElementById("zone").value = $("#" + $(this).attr("name") + " :selected").val();
+                                                //document.getElementById("hidepin").value = $("#" + $(this).attr("name") + " :selected").text();
+                                                //alert($("#" + $(this).attr("name") + " :selected").text());
+
+                                                var pincode = $("#" + $(this).attr("name") + " :selected").val();
+                                                var dist = "";
+                                                $.ajax({
+                                                    url: '/dashboard/GetDistrict',
+                                                    data: { 'pin': pincode },
+                                                    type: 'get',
+                                                    cache: false,
+                                                    success: function (data) {
+                                                        msg = data;
+                                                        $("#zone").val(msg);
+                                                        //alert(data);
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    </script>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="field-6" class="control-label">Zone</label>
+                                        <input type="text" class="form-control" id="zone" readonly="readonly" name="zone" placeholder="zone">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer text-center">
+                            <input type="submit" class="btn btn-primary btn-embossed bnt-square" id="update" name="upadte" value="Update" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#update").click(function () {
+                    var name = $('#name').val();
+                    var email = $("#email").val();
+                    var shopname = $("#shopname").val();
+                    var location = $("#location").val();
+                    var address = $("#address").val();
+                    var mobile = $("#mobile").val();
+                    var altmobile = $("#altmobile").val();
+                    var pin = $("#pin").val();
+                    var zone = $("#zone").val();
+                    var prvpin=document.getElementById("prvpincode").value;
+                    if (name == "" || email == "" || shopname == "" || location == "" || address == "" || mobile == "" || altmobile == "" || zone == "")
+                    {
+                        swal("All fields are required");
+                        return false;
+                    }
+                    else if(name=="" && email=="" && shopname=="" && location=="" && address=="" && mobile=="" && altmobile=="" && zone=="")
+                    {
+                        swal("All fields are required");
+                        return false;
+                    }
+                });
+            });
+        </script>
+            <div class="modal fade modal-slideright" id="modal-slideright" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2 class="c-primary m-b-30">Are you sure you want to delete?</h2>
+                                    <input type="submit" class="btn btn-primary" id="delete" name="delete" value="Yes, I'm sure" />
+                                    <button type="button" data-dismiss="modal" class="btn btn-danger btn-block">No, I prefer not!</input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+            <div class="footer">
+                <div class="copyright">
+                    <p class="pull-left sm-pull-reset">
+                        <span>Copyright <span class="copyright">©</span> 2015 </span>
+                        <span>mShipper</span>.
+                        <span>All rights reserved. </span>
+                    </p>
+                    <p class="pull-right sm-pull-reset">
+                        <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+                    </p>
+                </div>
+            </div>
+        </form>
+</div>
+<!-- END PAGE CONTENT -->

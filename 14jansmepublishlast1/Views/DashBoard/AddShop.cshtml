@@ -1,0 +1,1171 @@
+﻿@model SMEPanel.Models.Universal
+
+@{
+    ViewBag.Title = "AddShop";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<h2>AddShop</h2>
+<style>
+    .form-error {
+        color: #994F4F;
+        font-style: italic;
+        margin-top: 10px;
+        font-size: small;
+    }
+    .input__field--hoshi {
+
+    font-size: large;
+}
+</style>
+<!-- BEGIN PAGE CONTENT -->
+<script src="~/assets/js/jquery.form.js"></script>
+<div class="page-content page-thin">
+    <div class="row">
+        <div class="col-md-7 ">
+            <div class="panel panel-default no-bd">
+                <div class="panel-header bg-dark">
+                    <h2 class="panel-title"><strong>Add Store</strong> </h2>
+                </div>
+                <div class="panel-body bg-white">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div id="containerBlock">
+                                <form action="@Url.Action("AddShop","DashBoard")" id="formid" class="form-validation" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" id="name" name="name" required onblur="validatename();" />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-4">
+                                                    <span class="input__label-content input__label-content--hoshi">Name</span>
+                                                </label>
+                                            </span>
+                                            <div id="name-error" style="color:red"></div>
+                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                                        </div>
+                                        <script>
+                                            function validatename() {
+                                                if ($("#name").val() == "") {
+                                                    $("#name-error").html("This field is required ");
+                                                    return false;
+                                                }
+                                                else {
+                                                    $("#name-error").html("");
+                                                }
+                                            }
+                                        </script>
+                                        <script>
+
+                                            $('#name').keyup(function () {
+                                                var a = $("#name").val();
+
+                                                if (a.match(/^[ t`~!@@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]+/gi)) {
+
+                                                    $("#name-error").html("space not allowed");
+                                                    $("#name").val(null);
+                                                    return false;
+                                                }
+                                                else {
+
+                                                    $("#name-error").html("");
+                                                    //document.form1.text1.focus();
+                                                    return true;
+                                                }
+
+                                            });
+                                        </script>
+
+                                        <div class="col-sm-6">
+                                            <script>
+
+                                                $(document).ready(function () {
+                                                    $("#Email").keypress(function (e) {
+                                                        if (e.which === 32) {
+
+                                                            return false;
+                                                        }
+                                                    });
+                                                });
+                                            </script>
+
+                                            <script type="text/javascript">
+
+                                                function ValidateEmail(inputText) {
+                                                    var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                                                    if (inputText.value.match(mailformat)) {
+                                                        $("#Email-error").html("");
+                                                        //document.form1.text1.focus();
+                                                        $("#Email-error").html("");
+                                                        return true;
+                                                    }
+                                                    else {
+                                                        $("#Email-error").html("You have entered an invalid email address!");
+                                                        //document.form1.text1.focus();
+                                                        return false;
+                                                    }
+                                                }
+                                                $(document).ready(function () {
+
+                                                    $("#Email").blur(function () {
+                                                        var a = $("#Email").val();
+                                                        var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                                                        if (a.match(mailformat)) {
+                                                            //document.form1.text1.focus();
+                                                            $("#Email-error").html("");
+                                                            return true;
+                                                        }
+                                                        else {
+                                                            $("#Email").val(" ");
+                                                            $("#Email-error").html("You have entered an invalid email address!");
+                                                            //document.form1.text1.focus();
+                                                            return false;
+                                                        }
+                                                    });
+                                                });
+
+                                            </script>
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="Email" id="Email" name="email" aria-required="true" onkeyup="ValidateEmail(this);" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-2" for="input-5">
+                                                    <span class="input__label-content input__label-content--hoshi">Email</span>
+                                                </label>
+                                            </span>
+                                            <div id="Email-error" style="color:red"></div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" id="shopname" name="shopname" required onblur="validateshop();" />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Store Name</span>
+                                                </label>
+                                            </span>
+                                            <div id="shopname-error" style="color:red"></div>
+                                            <script>
+                                                function validateshop() {
+                                                    if ($("#shopname").val() == "") {
+                                                        $("#shopname-error").html("This field is required ");
+                                                        return false;
+                                                    }
+                                                    else {
+                                                        $("#shopname-error").html("");
+                                                    }
+                                                }
+
+                                            </script>
+                                            <script>
+                                                $(document).ready(function () {
+
+                                                    $('#shopname').keyup(function () {
+                                                        var a = $("#shopname").val();
+                                                        var mailformat = '^[ t]+';
+                                                        if (a.match(mailformat)) {
+
+
+                                                            $("#shopname-error").html("space not allowed");
+
+                                                            $("#shopname").val(null);
+                                                            return false;
+                                                        }
+                                                        else {
+
+                                                            $("#shopname-error").html("");
+                                                            //document.form1.text1.focus();
+                                                            return true;
+                                                        }
+
+                                                    });
+                                                });
+                                            </script>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                                            <script type="text/javascript">
+
+
+
+
+                                            </script>
+
+                                            <input type="hidden" name="lat" id="lat" />
+
+                                            <input type="hidden" name="lang" id="lang" />
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" id="location" placeholder="" name="location" onblur="validatelocation();" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Location</span>
+                                                </label>
+                                            </span>
+                                            <div id="location-error" style="color:red"></div>
+                                            <script>
+                                                function validatelocation() {
+                                                    if ($("#location").val() == "") {
+                                                        $("#location-error").html("This field is required ");
+                                                        return false;
+                                                    }
+                                                    else {
+                                                        $("#location-error").html("");
+                                                    }
+                                                }
+                                            </script>
+                                            <script>
+                                                $(document).ready(function () {
+
+                                                    $('#location').keyup(function () {
+                                                        var a = $("#location").val();
+                                                        var mailformat = '^[ t]+';
+                                                        if (a.match(mailformat)) {
+
+
+                                                            $("#location-error").html("space not allowed");
+                                                            $("#location").val(null);
+                                                            //document.form1.text1.focus();
+                                                            return false;
+                                                        }
+                                                        else {
+
+                                                            $("#location-error").html("");
+                                                            //document.form1.text1.focus();
+                                                            return true;
+                                                        }
+
+                                                    });
+                                                });
+                                            </script>
+
+
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" id="address" name="address" onblur="validateaddr();" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-2" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Address</span>
+                                                </label>
+                                            </span>
+                                            <div id="address-error" style="color:red"></div>
+                                            <script>
+                                                function validateaddr() {
+                                                    if ($("#address").val() == "") {
+                                                        $("#address-error").html("This field is required ");
+                                                        return false;
+                                                    }
+                                                    else {
+                                                        $("#address-error").html("");
+                                                    }
+                                                }
+
+                                            </script>
+                                            <script>
+
+
+                                                $('#address').keyup(function () {
+                                                    var a = $("#address").val();
+                                                    var mailformat = '^[ t]+';
+                                                    if (a.match(mailformat)) {
+
+
+                                                        $("#address-error").html("space not allowed");
+                                                        $("#address").val(null);
+                                                        //document.form1.text1.focus();
+                                                        return false;
+                                                    }
+                                                    else {
+
+                                                        $("#address-error").html("");
+                                                        //document.form1.text1.focus();
+                                                        return true;
+                                                    }
+
+                                                });
+                                            </script>
+
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <script>
+                                                $(document).ready(function () {
+                                                    $("#mobile").keypress(function (e) {
+                                                        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                                                            $("#mobile-error").html("Digits Only").show().fadeOut("slow");
+                                                            return false;
+                                                        }
+                                                    });
+
+                                                    $("#mobile").blur(function () {
+                                                        var phone = $("#mobile").val();
+                                                        //alert($("#mobile").val());
+
+                                                        if (mobile.value.length <= 9 || mobile.value.length >= 11) {
+                                                            $("#mobile-error").html('Please enter valid mobile no');
+
+                                                            $("#mobile").val(null);
+
+                                                            return false;
+                                                        }
+                                                        else {
+
+                                                            $("#mobile-error").html("");
+                                                        }
+
+                                                    });
+                                                });
+                                                function validatePhone(phoneText) {
+                                                    var filter = /[0-9]|\./;
+                                                    var space = /\s+/;
+                                                    if (filter.test(phoneText)) {
+                                                        return true;
+                                                    }
+                                                    else {
+                                                        return false;
+                                                    }
+                                                    if (space.test(phoneText)) {
+                                                        return true;
+
+                                                    }
+                                                    else {
+                                                        return false;
+                                                    }
+                                                }
+                                            </script>
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" id="mobile" name="mobile" onkeyup="validatePhone(this)" />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Mobile</span>
+                                                </label>
+                                            </span>
+                                            <div id="mobile-error" style="color:red"></div>
+                                        </div>
+                                        <div class="col-sm-6">
+
+                                            <script>
+                                                $(document).ready(function () {
+                                                    $("#altmobile").keypress(function (e) {
+                                                        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                                                            $("#altmobile-error").html("Digits Only").show().fadeOut("slow");
+                                                            return false;
+                                                        }
+                                                    });
+                                                    $("#altmobile").blur(function () {
+                                                        var phone = $("#altmobile").val();
+                                                        //alert($("#altmobile").val());
+
+                                                        if (altmobile.value.length <= 9 || altmobile.value.length >= 11) {
+                                                            $("#altmobile-error").html('Please enter valid mobile no');
+
+                                                            $("#altmobile").val(null);
+
+
+
+                                                            return false;
+                                                        }
+                                                        else {
+                                                            $("#altmobile-error").html("");
+                                                        }
+
+                                                    });
+                                                });
+                                                function validatealtPhone(phone) {
+                                                    var filter = /^[0-9\b]+$/;
+                                                    var space = /\s+/;
+                                                    if (filter.test(phone)) {
+                                                        return true;
+                                                    }
+                                                    else {
+                                                        return false;
+                                                    }
+                                                    if (space.test(phone)) {
+                                                        return true;
+
+                                                    }
+                                                    else {
+                                                        return false;
+                                                    }
+                                                }
+                                            </script>
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" id="altmobile" name="altmobile" onblur="validatealtPhone()" />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Alternate Mobile</span>
+
+                                                </label>
+                                            </span>
+                                            <div id="altmobile-error" style="color:red"></div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Pin</label>
+                                                <select class="form-control" name="pin" id="pin" data-placeholder="Select....." required>
+                                                    <option value="">Select pincode....</option>
+                                                    @foreach (var itempincode in Model.objpincode)
+                                                    {
+                                                        <option value="@itempincode.PinCode">@itempincode.PinCode</option>
+                                                    }
+                                                </select>
+                                                <input type="hidden" id="hidepin" name="hidepin" />
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="msg" name="msg" value="@ViewBag.msg" /> @*for message display after record save*@
+
+                                        @*start script for message display*@
+
+                                        <link href="~/assets/sweetalert.css" rel="stylesheet" />
+                                        <script src="~/assets/sweetalert.min.js"></script>
+                                        <link href="~/assets/waitMe.css" rel="stylesheet" />
+                                        @*<script type="text/javascript">
+                        $(document).ready(function () {
+                            var msg=$("#msg").val();
+                            if(msg=="Record Successfully Save")
+                            {
+                               swal({   title: 'Success',   text: 'Your shop has been successfully added.',   type: 'success',   showCancelButton:false,   confirmButtonColor: '#b6ce38',   confirmButtonText: 'Ok',   closeOnConfirm: false }, function(){   window.location.href = '/dashboard/AllShops'; });
+
+                            }
+                        });
+
+                    </script>*@
+                                        @*end script for message display*@
+
+                                        @*jquery for get zone by pincode*@
+                                        <script>
+                                            $(document).ready(function () {
+
+                                                $("#pin").change(function () {
+                                                    //document.getElementById("zone").value = $("#" + $(this).attr("name") + " :selected").val();
+                                                    //document.getElementById("hidepin").value = $("#" + $(this).attr("name") + " :selected").text();
+                                                    //alert($("#" + $(this).attr("name") + " :selected").text());
+                                                    var pincode = $("#" + $(this).attr("name") + " :selected").val();
+                                                    var dist = "";
+                                                    $.ajax({
+                                                        url: '/dashboard/GetDistrict',
+                                                        data: { 'pin': pincode },
+                                                        type: 'get',
+                                                        cache: false,
+                                                        success: function (data) {
+                                                            msg = data;
+                                                            $("#zone").val(msg);
+
+                                                        }
+                                                    });
+
+
+                                                });
+                                            });
+                                        </script>
+                                        <div class="col-sm-6">
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" id="zone" name="zone" readonly="readonly" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Zone</span>
+                                                </label>
+                                            </span>
+                                        </div>
+
+
+
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Are you OK with our terms?</label>
+                                                <div class="option-group">
+                                                    <label for="terms" class="m-t-10">
+                                                        <input type="checkbox" name="terms" id="terms" data-checkbox="icheckbox_square-blue" required />
+                                                        <a href="/dashboard/Terms" target="_blank">I agree with terms and conditions</a>
+                                                    </label>
+                                                    <div id="error-terms" style="color:red"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center  m-t-20">
+                                        <input type="button" class="btn btn-embossed btn-primary" name="AddShop" id="AddShop" value="Add" />
+                                        <button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>
+                                        <button type="button" id="preview" name="preview" class="btn btn-embossed btn-primary" data-toggle="modal" data-target="#modal-responsive">Preview</button>
+                                        <div id="valid" style="color:red"></div>
+                                    </div>
+
+                                    <div class="containerBlock">
+
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(document).ready(function () {
+                                            $("#AddShop").click(function () {
+                                                var current_effect = "roundBounce";
+                                                if (!$('#terms').is(':checked')) {
+                                                    $("#error-terms").html("You must have to accept our terms & conditions.");
+
+                                                    return false;
+                                                }
+                                                else {
+                                                    $("#error-terms").html("");
+                                                }
+                                                if ($("#Email").val() == "" || $("#shopname").val() == "" || $("#location").val() == ""
+                                                                                 || $("#address").val() == "" || $("#mobile").val() == "" || $("#altmobile").val() == ""
+                                                                                 || $("#pin").val() == "" || $("#zone").val() == ""
+                                                                              ) {
+                                                    $("#valid").html("All fields are required");
+                                                    //$("#Email-error").html("This field is required");
+                                                    return false;
+                                                }
+                                                else if (!$('#terms').is(':checked')) {
+                                                    $("#error-terms").html("You must have to accept our terms & conditions.");
+                                                }
+                                                else {
+                                                    $("#valid").html("");
+                                                    //$('.containerBlock').html("<img style='height:50px; width:50px;' src='/assets/js/loading.gif'>");
+                                                    run_waitMe(current_effect);
+                                                    $.post($("#formid").attr("action"),
+                                                           $("#formid :input").serializeArray(),
+                                                           function (info) {
+                                                               $('#containerBlock > form').waitMe('hide');
+                                                               $('.containerBlock').html(" ");
+                                                               swal({ title: 'Success', text: 'Your shop has been successfully added.', type: 'success', showCancelButton: false, confirmButtonColor: '#b6ce38', confirmButtonText: 'Ok', closeOnConfirm: false }, function () { window.location.href = '/dashboard/AllShops'; });
+
+                                                           });
+                                                }
+
+
+
+
+                                            })
+
+                                            function run_waitMe(effect) {
+                                                $('#containerBlock > form').waitMe({
+                                                    effect: effect,
+                                                    text: 'Please wait...',
+                                                    bg: 'rgba(255,255,255,0.7)',
+                                                    color: '#000',
+                                                    sizeW: '',
+                                                    sizeH: '',
+                                                    source: '/assets/img.svg'
+                                                });
+                                            }
+
+
+                                            (function ($) {
+                                                $.fn.waitMe = function (method) {
+                                                    return this.each(function () {
+
+                                                        var elem = $(this),
+                                                              elemClass = 'waitMe',
+                                                              waitMe_text,
+                                                              effectObj,
+                                                              effectElemCount,
+                                                              createSubElem = false,
+                                                              specificAttr = 'background-color',
+                                                              addStyle = '',
+                                                              effectElemHTML = '',
+                                                              waitMeObj,
+                                                              containerSize,
+                                                              elemSize,
+                                                              _options,
+                                                              currentID;
+
+                                                        var methods = {
+                                                            init: function () {
+                                                                var _defaults = {
+                                                                    effect: 'bounce',
+                                                                    text: '',
+                                                                    bg: 'rgba(255,255,255,0.7)',
+                                                                    color: '#000',
+                                                                    sizeW: '',
+                                                                    sizeH: '',
+                                                                    source: '',
+                                                                    onClose: function () { }
+                                                                };
+                                                                _options = $.extend(_defaults, method);
+
+                                                                currentID = new Date().getMilliseconds();
+                                                                waitMeObj = $('<div class="' + elemClass + '" data-waitme_id="' + currentID + '"></div>');
+                                                                var size = 'width:' + _options.sizeW + ';height:' + _options.sizeH;
+
+                                                                switch (_options.effect) {
+                                                                    case 'none':
+                                                                        effectElemCount = 0;
+                                                                        break;
+                                                                    case 'bounce':
+                                                                        effectElemCount = 3;
+                                                                        containerSize = '';
+                                                                        elemSize = size;
+                                                                        break;
+                                                                    case 'rotateplane':
+                                                                        effectElemCount = 1;
+                                                                        containerSize = '';
+                                                                        elemSize = size;
+                                                                        break;
+                                                                    case 'stretch':
+                                                                        effectElemCount = 5;
+                                                                        containerSize = '';
+                                                                        elemSize = size;
+                                                                        break;
+                                                                    case 'orbit':
+                                                                        effectElemCount = 2;
+                                                                        containerSize = size;
+                                                                        elemSize = '';
+                                                                        break;
+                                                                    case 'roundBounce':
+                                                                        effectElemCount = 12;
+                                                                        containerSize = size;
+                                                                        elemSize = '';
+                                                                        break;
+                                                                    case 'win8':
+                                                                        effectElemCount = 5;
+                                                                        createSubElem = true;
+                                                                        containerSize = size;
+                                                                        elemSize = size;
+                                                                        break;
+                                                                    case 'win8_linear':
+                                                                        effectElemCount = 5;
+                                                                        createSubElem = true;
+                                                                        containerSize = size;
+                                                                        elemSize = '';
+                                                                        break;
+                                                                    case 'ios':
+                                                                        effectElemCount = 12;
+                                                                        containerSize = size;
+                                                                        elemSize = '';
+                                                                        break;
+                                                                    case 'facebook':
+                                                                        effectElemCount = 3;
+                                                                        containerSize = '';
+                                                                        elemSize = size;
+                                                                        break;
+                                                                    case 'rotation':
+                                                                        effectElemCount = 1;
+                                                                        specificAttr = 'border-color';
+                                                                        containerSize = '';
+                                                                        elemSize = size;
+                                                                        break;
+                                                                    case 'timer':
+                                                                        effectElemCount = 2;
+                                                                        if ($.isArray(_options.color)) {
+                                                                            var color = _options.color[0];
+                                                                        } else {
+                                                                            var color = _options.color;
+                                                                        }
+                                                                        addStyle = 'border-color:' + color;
+                                                                        containerSize = size;
+                                                                        elemSize = '';
+                                                                        break;
+                                                                    case 'pulse':
+                                                                        effectElemCount = 1;
+                                                                        specificAttr = 'border-color';
+                                                                        containerSize = '';
+                                                                        elemSize = size;
+                                                                        break;
+                                                                    case 'progressBar':
+                                                                        effectElemCount = 1;
+                                                                        containerSize = '';
+                                                                        elemSize = size;
+                                                                        break;
+                                                                    case 'bouncePulse':
+                                                                        effectElemCount = 3;
+                                                                        containerSize = '';
+                                                                        elemSize = size;
+                                                                        break;
+                                                                    case 'img':
+                                                                        effectElemCount = 1;
+                                                                        containerSize = '';
+                                                                        elemSize = size;
+                                                                        break;
+                                                                }
+
+                                                                if (_options.sizeW === '' && _options.sizeH === '') {
+                                                                    elemSize = '';
+                                                                    containerSize = '';
+                                                                }
+                                                                if (containerSize !== '' && addStyle !== '') {
+                                                                    addStyle = ';' + addStyle;
+                                                                }
+
+                                                                if (effectElemCount > 0) {
+                                                                    effectObj = $('<div class="' + elemClass + '_progress ' + _options.effect + '"></div>');
+                                                                    if (_options.effect == 'img') {
+                                                                        effectElemHTML = '<img src="' + _options.source + '" style="' + elemSize + '">';
+                                                                    } else {
+                                                                        for (var i = 1; i <= effectElemCount; ++i) {
+                                                                            if ($.isArray(_options.color)) {
+                                                                                var color = _options.color[i];
+                                                                                if (color == undefined) {
+                                                                                    color = '#000';
+                                                                                }
+                                                                            } else {
+                                                                                var color = _options.color;
+                                                                            }
+                                                                            if (createSubElem) {
+                                                                                effectElemHTML += '<div class="' + elemClass + '_progress_elem' + i + '" style="' + elemSize + '"><div style="' + specificAttr + ':' + color + '"></div></div>';
+                                                                            } else {
+                                                                                effectElemHTML += '<div class="' + elemClass + '_progress_elem' + i + '" style="' + specificAttr + ':' + color + ';' + elemSize + '"></div>';
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    effectObj = $('<div class="' + elemClass + '_progress ' + _options.effect + '" style="' + containerSize + addStyle + '">' + effectElemHTML + '</div>');
+                                                                }
+
+                                                                if (_options.text) {
+                                                                    if ($.isArray(_options.color)) {
+                                                                        var color = _options.color[0];
+                                                                    } else {
+                                                                        var color = _options.color;
+                                                                    }
+                                                                    waitMe_text = $('<div class="' + elemClass + '_text" style="color:' + color + '">' + _options.text + '</div>');
+                                                                }
+                                                                var elemObj = elem.find('> .' + elemClass);
+
+                                                                if (elemObj) {
+                                                                    elemObj.remove();
+                                                                }
+                                                                var waitMeDivObj = $('<div class="' + elemClass + '_content"></div>');
+                                                                waitMeDivObj.append(effectObj, waitMe_text);
+                                                                waitMeObj.append(waitMeDivObj);
+                                                                if (elem[0].tagName == 'HTML') {
+                                                                    elem = $('body');
+                                                                }
+                                                                elem.addClass(elemClass + '_container').attr('data-waitme_id', currentID).append(waitMeObj);
+                                                                elemObj = elem.find('> .' + elemClass);
+                                                                var elemContentObj = elem.find('.' + elemClass + '_content');
+                                                                elemObj.css({ background: _options.bg });
+                                                                elemContentObj.css({ marginTop: -elemContentObj.outerHeight() / 2 + 'px' });
+
+                                                                function setElTop(getTop) {
+                                                                    elemContentObj.css({ top: 'auto', transform: 'translateY(' + getTop + 'px) translateZ(0)' });
+                                                                }
+                                                                if (elem.outerHeight() > $(window).height()) {
+                                                                    var sTop = $(window).scrollTop(),
+                                                                    elH = elemContentObj.outerHeight(),
+                                                                    elTop = elem.offset().top,
+                                                                    cH = elem.outerHeight(),
+                                                                                getTop = sTop - elTop + $(window).height() / 2;
+                                                                    if (getTop < 0) {
+                                                                        getTop = Math.abs(getTop);
+                                                                    }
+                                                                    if (getTop - elH >= 0 && getTop + elH <= cH) {
+                                                                        if (elTop - sTop > $(window).height() / 2) {
+                                                                            getTop = elH;
+                                                                        }
+                                                                        setElTop(getTop);
+                                                                    } else {
+                                                                        if (sTop > elTop + cH - elH) {
+                                                                            getTop = sTop - elTop - elH;
+                                                                        } else {
+                                                                            getTop = sTop - elTop + elH;
+                                                                        }
+                                                                        setElTop(getTop);
+                                                                    }
+                                                                    $(document).scroll(function () {
+                                                                        var sTop = $(window).scrollTop(),
+                                                                        getTop = sTop - elTop + $(window).height() / 2;
+                                                                        if (getTop - elH >= 0 && getTop + elH <= cH) {
+                                                                            setElTop(getTop);
+                                                                        }
+                                                                    });
+                                                                }
+
+                                                                elemObj.on('destroyed', function () {
+                                                                    if (_options.onClose && $.isFunction(_options.onClose)) {
+                                                                        _options.onClose();
+                                                                    }
+                                                                    elemObj.trigger('close');
+                                                                });
+
+                                                                $.event.special.destroyed = {
+                                                                    remove: function (o) {
+                                                                        if (o.handler) {
+                                                                            o.handler();
+                                                                        }
+                                                                    }
+                                                                };
+
+                                                                return elemObj;
+                                                            },
+                                                            hide: function () {
+                                                                waitMeClose();
+                                                            }
+                                                        };
+
+                                                        function waitMeClose() {
+                                                            var currentID = elem.attr('data-waitme_id');
+                                                            elem.removeClass(elemClass + '_container').removeAttr('data-waitme_id');
+                                                            elem.find('.' + elemClass + '[data-waitme_id="' + currentID + '"]').remove();
+                                                        }
+
+                                                        if (methods[method]) {
+                                                            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+                                                        } else if (typeof method === 'object' || !method) {
+                                                            return methods.init.apply(this, arguments);
+                                                        }
+
+                                                    });
+
+                                                };
+                                                $(window).load(function () {
+                                                    $('body.waitMe_body').addClass('hideMe');
+                                                    setTimeout(function () {
+                                                        $('body.waitMe_body').find('.waitMe_container:not([data-waitme_id])').remove();
+                                                        $('body.waitMe_body').removeClass('waitMe_body hideMe');
+                                                    }, 200);
+                                                });
+                                            })(jQuery);
+
+
+                                        });
+                                    </script>
+
+
+
+
+                                    @*start preview popup*@
+                                    <div class="modal fade" id="modal-responsive" aria-hidden="true">
+                                        <div class="modal-dialog modal-md">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-primary">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                                                    <h4 class="modal-title"><strong>Preview</strong> Store</h4>
+                                                </div>
+
+                                                <div class="modal-body">
+
+                                                    <div class="row">
+                                                        <div class="col-md-2 col-lg-2 " align="center">  </div>
+
+                                                        <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+                                  <dl>
+                                    <dt>DEPARTMENT:</dt>
+                                    <dd>Administrator</dd>
+                                    <dt>HIRE DATE</dt>
+                                    <dd>11/12/2013</dd>
+                                    <dt>DATE OF BIRTH</dt>
+                                       <dd>11/12/2013</dd>
+                                    <dt>GENDER</dt>
+                                    <dd>Male</dd>
+                                  </dl>
+                                </div>-->
+                                                        <div class="col-md-9 col-lg-9">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-hover ">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Name</td>
+                                                                            <td id="nameprv"></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Email</td>
+                                                                            <td id="emailprv"></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Store name</td>
+                                                                            <td id="shopnameprv"></td>
+                                                                        </tr>
+
+                                                                        <tr></tr>
+                                                                        <tr>
+                                                                            <td>Location</td>
+                                                                            <td id="locationprv"></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Address</td>
+                                                                            <td id="addressprv"> </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Mobile</td>
+                                                                            <td id="mobileprv"></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Alternate mobile number</td>
+                                                                            <td id="altmobileprv"></td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Pincode</td>
+                                                                            <td id="pincodeprv"></td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Zone</td>
+                                                                            <td id="zoneprv"></td>
+
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div class="modal-footer text-center">
+                                                    <input type="button" class="btn btn-primary btn-embossed bnt-square" data-dismiss="modal" id="add" name="add" value="Add" />
+                                                    <button type="button" class="btn btn-primary btn-embossed bnt-square" data-dismiss="modal" id="cancel" name="cancel" value="Cancel">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*end preview popup*@
+
+
+
+
+                                </form>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#preview").click(function () {
+                    var name = $("#name").val();
+                    $("#nameprv").text(name);
+                    //alert($("#name").val());
+                    $("#emailprv").text($("#Email").val());
+                    $("#shopnameprv").text($("#shopname").val());
+                    $("#locationprv").text($("#location").val());
+                    $("#addressprv").text($("#address").val());
+                    $("#mobileprv").text($("#mobile").val());
+                    $("#altmobileprv").text($("#altmobile").val());
+                    $("#pincodeprv").text($("#pin").val());
+                    $("#zoneprv").text($("#zone").val());
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#add").click(function () {
+                    var name = $("#name").val();                 
+                    //alert($("#name").val());  
+                    var current_effect = "roundBounce";
+                    //$('.containerBlock').html("<img style='height:50px; width:50px;' src='/assets/js/loading.gif'>");
+                    if (!$('#terms').is(':checked')) {
+                        $("#error-terms").html("You must have to accept our terms & conditions.");
+
+                        return false;
+                    }
+                    else {
+                        $("#error-terms").html("");
+                    }
+                    if ($("#Email").val() == "" || $("#shopname").val() == "" || $("#location").val() == ""
+                                                     || $("#address").val() == "" || $("#mobile").val() == "" || $("#altmobile").val() == ""
+                                                     || $("#pin").val() == "" || $("#zone").val() == ""
+                                                  ) {
+                        $("#valid").html("All fields are required");
+                        //$("#Email-error").html("This field is required");
+                        return false;
+                    }
+                    else if (!$('#terms').is(':checked')) {
+                        $("#error-terms").html("You must have to accept our terms & conditions.");
+                    }
+                    else {
+                        $("#valid").html("");
+                        //$('.containerBlock').html("<img style='height:50px; width:50px;' src='/assets/js/loading.gif'>");
+                        run_waitMe(current_effect);
+
+                        $.post($("#formid").attr("action"),
+                        $("#formid :input").serializeArray(),
+                        function (info) {
+                            //$('.containerBlock').html(" ");
+                            $('#containerBlock > form').waitMe('hide');
+                            swal({ title: 'Success', text: 'Your shop has been successfully added.', type: 'success', showCancelButton: false, confirmButtonColor: '#b6ce38', confirmButtonText: 'Ok', closeOnConfirm: false }, function () { window.location.href = '/dashboard/AllShops'; });
+
+                        });
+                    }
+                });
+            });
+            
+        </script>
+      
+
+
+        @*//start current location//*@
+     
+       
+        <script src="http://maps.googleapis.com/maps/api/js">
+        </script>
+        @*<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>*@
+
+
+        <script type="text/javascript"
+                src="http://maps.google.com/maps/api/js?sensor=set_to_true_or_false&libraries=places">
+        </script>
+     
+
+
+     
+
+      
+
+
+
+
+        <script  type="text/javascript">
+            google.maps.event.addDomListener(window, 'load', function () {
+
+                var places = new google.maps.places.Autocomplete(document.getElementById('location'));
+
+
+
+
+                google.maps.event.addListener(places, 'place_changed', function () {
+
+                    var place = places.getPlace();
+
+                    document.getElementById("lat").value = place.geometry.location.lat();
+                    document.getElementById("lang").value = place.geometry.location.lng();
+                    var amsterdam = new google.maps.LatLng(document.getElementById("lat").value, document.getElementById("lang").value);
+                    //alert(document.getElementById("lang").value);
+                    initialize(amsterdam);
+
+
+                });
+                // alert(lat);
+            });
+
+            function initialize(amsterdam)
+{
+var mapProp = {
+  center:amsterdam,
+  zoom:16,
+  mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+
+var map = new google.maps.Map(document.getElementById("map"),mapProp);
+
+var myCity = new google.maps.Circle({
+  center:amsterdam,
+  radius:20000,
+  strokeColor:"#0000FF",
+  strokeOpacity:0.8,
+  strokeWeight:2,
+  fillColor:"#0000FF",
+  fillOpacity:0.4
+});
+var marker = new google.maps.Marker({
+    position: amsterdam,
+});
+
+myCity.setMap(map);
+marker.setMap(map);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+
+
+      
+       
+
+        <script type="text/javascript">
+      function writeAddressName(latLng) {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+          "location": latLng
+        },
+        function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK)
+              document.getElementById("location").value = results[0].formatted_address;
+          else
+            document.getElementById("error").innerHTML += "Unable to retrieve your address" + "<br />";
+        });
+      }
+
+      function geolocationSuccess(position) {
+          var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          
+        // Write the formatted address
+        writeAddressName(userLatLng);
+
+        var myOptions = {
+          zoom : 16,
+          center : userLatLng,
+          mapTypeId : google.maps.MapTypeId.ROADMAP
+        };
+        // Draw the map
+        var mapObject = new google.maps.Map(document.getElementById("map"), myOptions);
+        // Place the marker
+        new google.maps.Marker({
+          map: mapObject,
+          position: userLatLng
+        });
+        // Draw a circle around the user position to have an idea of the current localization accuracy
+        var circle = new google.maps.Circle({
+          center: userLatLng,
+          radius: position.coords.accuracy,
+          map: mapObject,
+          fillColor: '#0000FF',
+          fillOpacity: 0.5,
+          strokeColor: '#0000FF',
+          strokeOpacity: 1.0
+        });
+        mapObject.fitBounds(circle.getBounds());
+      }
+
+      function geolocationError(positionError) {
+        document.getElementById("error").innerHTML += "Error: " + positionError.message + "<br />";
+      }
+
+      function geolocateUser() {
+        // If the browser supports the Geolocation API
+        if (navigator.geolocation)
+        {
+          var positionOptions = {
+            enableHighAccuracy: true,
+            timeout: 10 * 1000 // 10 seconds
+          };
+          navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, positionOptions);
+        }
+        else
+          document.getElementById("error").innerHTML += "Your browser doesn't support the Geolocation API";
+      }
+
+      window.onload = geolocateUser;
+        </script>
+     
+        @*//End current location//*@
+        <div class="header">
+            <h2><strong>Current Location</strong></h2>
+            <div class="breadcrumb-wrapper">
+                <ol class="breadcrumb"></ol>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel panel-default map-panel">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="map" id="map"></div>
+
+                        </div>
+                    </div>
+                    <div class="panel-header">
+                        <h3 class="panel-title"><strong>Map</strong> </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="footer">
+        <div class="copyright">
+            <p class="pull-left sm-pull-reset">
+                <span>Copyright <span class="copyright">©</span> 2015 </span>
+                <span>mShiper</span>.
+                <span>All rights reserved. </span>
+            </p>
+            <p class="pull-right sm-pull-reset">
+                <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+            </p>
+        </div>
+    </div>
+</div>
+@*<script src="http://maps.googleapis.com/maps/api/js">
+</script>*@
+
+<!-- END PAGE CONTENT -->

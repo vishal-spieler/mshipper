@@ -1,0 +1,379 @@
+﻿@model SMEPanel.Models.Universal
+
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<h2>Contact</h2>
+
+ <!-- BEGIN PAGE CONTENT -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href="~/assets/sweetalert.css" rel="stylesheet" />
+<script src="~/assets/sweetalert.min.js"></script>
+<div id="containerBlock">
+    <form action="@Url.Action("Contacts","dashboard")" id="formid" method="post">
+        @foreach (var item in Model.objadmincontact)
+    {
+
+
+    <div class="page-content page-contact">
+
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>Have a question? <br> Don't hesitate to send us a message. Our team will be happy to help you.</h2>
+            </div>
+        </div>
+
+        <div class="row m-b-30">
+            <div class="col-sm-6">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="firstname" class="h6">Shop Name</label>
+                        <input type="text" id="firstname" class="form-control form-white" value="@item.shopname">
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="email" class="h6">E-mail</label>
+                        <input type="text" id="email" name="email" class="form-control form-white" value="@item.email">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="subject" class="h6">Subject</label>
+                        <input type="text" id="subject" name="subject" class="form-control form-white" value="Request for subscription">
+                    </div>
+                </div>
+                <label for="message" class="h6">Message</label>
+                <textarea rows="7" id="message" name="message" class="form-control form-white">Hello Folks,&#10;Just wanted bring to your notice that Shop &#10;Name:@item.shopname&#10;Sme_id:@item.smeid &#10;has ended the subscription (package) please get in touch with respective person.&#10;&#10;&#10;Reqards,&#10;mShipper technical Team. </textarea>
+                <input type="button" id="btnSend" name="btnSend" class="btn btn-primary m-t-20" value="Send message" />
+
+            </div>
+            <link href="~/assets/waitMe.css" rel="stylesheet" />
+            <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#btnSend").click(function () {
+                            var current_effect = "roundBounce";
+                            run_waitMe(current_effect);
+                            $.post($("#formid").attr("action"),
+                           $("#formid :input").serializeArray(),
+                           function (info) {
+                               $('#containerBlock > form').waitMe('hide');
+                               swal({ title: 'Success', text: 'Your mail has been successfully sent.', type: 'success', showCancelButton: false, confirmButtonColor: '#b6ce38', confirmButtonText: 'Ok', closeOnConfirm: false }, function () { window.location.href = '/dashboard/home'; });
+
+                           });
+                        });
+
+                        function run_waitMe(effect) {
+                            $('#containerBlock > form').waitMe({
+                                effect: effect,
+                                text: 'Please wait...',
+                                bg: 'rgba(255,255,255,0.7)',
+                                color: '#000',
+                                sizeW: '',
+                                sizeH: '',
+                                source: '/assets/img.svg'
+                            });
+                        }
+
+
+                        (function ($) {
+                            $.fn.waitMe = function (method) {
+                                return this.each(function () {
+
+                                    var elem = $(this),
+                                          elemClass = 'waitMe',
+                                          waitMe_text,
+                                          effectObj,
+                                          effectElemCount,
+                                          createSubElem = false,
+                                          specificAttr = 'background-color',
+                                          addStyle = '',
+                                          effectElemHTML = '',
+                                          waitMeObj,
+                                          containerSize,
+                                          elemSize,
+                                          _options,
+                                          currentID;
+
+                                    var methods = {
+                                        init: function () {
+                                            var _defaults = {
+                                                effect: 'bounce',
+                                                text: '',
+                                                bg: 'rgba(255,255,255,0.7)',
+                                                color: '#000',
+                                                sizeW: '',
+                                                sizeH: '',
+                                                source: '',
+                                                onClose: function () { }
+                                            };
+                                            _options = $.extend(_defaults, method);
+
+                                            currentID = new Date().getMilliseconds();
+                                            waitMeObj = $('<div class="' + elemClass + '" data-waitme_id="' + currentID + '"></div>');
+                                            var size = 'width:' + _options.sizeW + ';height:' + _options.sizeH;
+
+                                            switch (_options.effect) {
+                                                case 'none':
+                                                    effectElemCount = 0;
+                                                    break;
+                                                case 'bounce':
+                                                    effectElemCount = 3;
+                                                    containerSize = '';
+                                                    elemSize = size;
+                                                    break;
+                                                case 'rotateplane':
+                                                    effectElemCount = 1;
+                                                    containerSize = '';
+                                                    elemSize = size;
+                                                    break;
+                                                case 'stretch':
+                                                    effectElemCount = 5;
+                                                    containerSize = '';
+                                                    elemSize = size;
+                                                    break;
+                                                case 'orbit':
+                                                    effectElemCount = 2;
+                                                    containerSize = size;
+                                                    elemSize = '';
+                                                    break;
+                                                case 'roundBounce':
+                                                    effectElemCount = 12;
+                                                    containerSize = size;
+                                                    elemSize = '';
+                                                    break;
+                                                case 'win8':
+                                                    effectElemCount = 5;
+                                                    createSubElem = true;
+                                                    containerSize = size;
+                                                    elemSize = size;
+                                                    break;
+                                                case 'win8_linear':
+                                                    effectElemCount = 5;
+                                                    createSubElem = true;
+                                                    containerSize = size;
+                                                    elemSize = '';
+                                                    break;
+                                                case 'ios':
+                                                    effectElemCount = 12;
+                                                    containerSize = size;
+                                                    elemSize = '';
+                                                    break;
+                                                case 'facebook':
+                                                    effectElemCount = 3;
+                                                    containerSize = '';
+                                                    elemSize = size;
+                                                    break;
+                                                case 'rotation':
+                                                    effectElemCount = 1;
+                                                    specificAttr = 'border-color';
+                                                    containerSize = '';
+                                                    elemSize = size;
+                                                    break;
+                                                case 'timer':
+                                                    effectElemCount = 2;
+                                                    if ($.isArray(_options.color)) {
+                                                        var color = _options.color[0];
+                                                    } else {
+                                                        var color = _options.color;
+                                                    }
+                                                    addStyle = 'border-color:' + color;
+                                                    containerSize = size;
+                                                    elemSize = '';
+                                                    break;
+                                                case 'pulse':
+                                                    effectElemCount = 1;
+                                                    specificAttr = 'border-color';
+                                                    containerSize = '';
+                                                    elemSize = size;
+                                                    break;
+                                                case 'progressBar':
+                                                    effectElemCount = 1;
+                                                    containerSize = '';
+                                                    elemSize = size;
+                                                    break;
+                                                case 'bouncePulse':
+                                                    effectElemCount = 3;
+                                                    containerSize = '';
+                                                    elemSize = size;
+                                                    break;
+                                                case 'img':
+                                                    effectElemCount = 1;
+                                                    containerSize = '';
+                                                    elemSize = size;
+                                                    break;
+                                            }
+
+                                            if (_options.sizeW === '' && _options.sizeH === '') {
+                                                elemSize = '';
+                                                containerSize = '';
+                                            }
+                                            if (containerSize !== '' && addStyle !== '') {
+                                                addStyle = ';' + addStyle;
+                                            }
+
+                                            if (effectElemCount > 0) {
+                                                effectObj = $('<div class="' + elemClass + '_progress ' + _options.effect + '"></div>');
+                                                if (_options.effect == 'img') {
+                                                    effectElemHTML = '<img src="' + _options.source + '" style="' + elemSize + '">';
+                                                } else {
+                                                    for (var i = 1; i <= effectElemCount; ++i) {
+                                                        if ($.isArray(_options.color)) {
+                                                            var color = _options.color[i];
+                                                            if (color == undefined) {
+                                                                color = '#000';
+                                                            }
+                                                        } else {
+                                                            var color = _options.color;
+                                                        }
+                                                        if (createSubElem) {
+                                                            effectElemHTML += '<div class="' + elemClass + '_progress_elem' + i + '" style="' + elemSize + '"><div style="' + specificAttr + ':' + color + '"></div></div>';
+                                                        } else {
+                                                            effectElemHTML += '<div class="' + elemClass + '_progress_elem' + i + '" style="' + specificAttr + ':' + color + ';' + elemSize + '"></div>';
+                                                        }
+                                                    }
+                                                }
+                                                effectObj = $('<div class="' + elemClass + '_progress ' + _options.effect + '" style="' + containerSize + addStyle + '">' + effectElemHTML + '</div>');
+                                            }
+
+                                            if (_options.text) {
+                                                if ($.isArray(_options.color)) {
+                                                    var color = _options.color[0];
+                                                } else {
+                                                    var color = _options.color;
+                                                }
+                                                waitMe_text = $('<div class="' + elemClass + '_text" style="color:' + color + '">' + _options.text + '</div>');
+                                            }
+                                            var elemObj = elem.find('> .' + elemClass);
+
+                                            if (elemObj) {
+                                                elemObj.remove();
+                                            }
+                                            var waitMeDivObj = $('<div class="' + elemClass + '_content"></div>');
+                                            waitMeDivObj.append(effectObj, waitMe_text);
+                                            waitMeObj.append(waitMeDivObj);
+                                            if (elem[0].tagName == 'HTML') {
+                                                elem = $('body');
+                                            }
+                                            elem.addClass(elemClass + '_container').attr('data-waitme_id', currentID).append(waitMeObj);
+                                            elemObj = elem.find('> .' + elemClass);
+                                            var elemContentObj = elem.find('.' + elemClass + '_content');
+                                            elemObj.css({ background: _options.bg });
+                                            elemContentObj.css({ marginTop: -elemContentObj.outerHeight() / 2 + 'px' });
+
+                                            function setElTop(getTop) {
+                                                elemContentObj.css({ top: 'auto', transform: 'translateY(' + getTop + 'px) translateZ(0)' });
+                                            }
+                                            if (elem.outerHeight() > $(window).height()) {
+                                                var sTop = $(window).scrollTop(),
+                                                elH = elemContentObj.outerHeight(),
+                                                elTop = elem.offset().top,
+                                                cH = elem.outerHeight(),
+                                                            getTop = sTop - elTop + $(window).height() / 2;
+                                                if (getTop < 0) {
+                                                    getTop = Math.abs(getTop);
+                                                }
+                                                if (getTop - elH >= 0 && getTop + elH <= cH) {
+                                                    if (elTop - sTop > $(window).height() / 2) {
+                                                        getTop = elH;
+                                                    }
+                                                    setElTop(getTop);
+                                                } else {
+                                                    if (sTop > elTop + cH - elH) {
+                                                        getTop = sTop - elTop - elH;
+                                                    } else {
+                                                        getTop = sTop - elTop + elH;
+                                                    }
+                                                    setElTop(getTop);
+                                                }
+                                                $(document).scroll(function () {
+                                                    var sTop = $(window).scrollTop(),
+                                                    getTop = sTop - elTop + $(window).height() / 2;
+                                                    if (getTop - elH >= 0 && getTop + elH <= cH) {
+                                                        setElTop(getTop);
+                                                    }
+                                                });
+                                            }
+
+                                            elemObj.on('destroyed', function () {
+                                                if (_options.onClose && $.isFunction(_options.onClose)) {
+                                                    _options.onClose();
+                                                }
+                                                elemObj.trigger('close');
+                                            });
+
+                                            $.event.special.destroyed = {
+                                                remove: function (o) {
+                                                    if (o.handler) {
+                                                        o.handler();
+                                                    }
+                                                }
+                                            };
+
+                                            return elemObj;
+                                        },
+                                        hide: function () {
+                                            waitMeClose();
+                                        }
+                                    };
+
+                                    function waitMeClose() {
+                                        var currentID = elem.attr('data-waitme_id');
+                                        elem.removeClass(elemClass + '_container').removeAttr('data-waitme_id');
+                                        elem.find('.' + elemClass + '[data-waitme_id="' + currentID + '"]').remove();
+                                    }
+
+                                    if (methods[method]) {
+                                        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+                                    } else if (typeof method === 'object' || !method) {
+                                        return methods.init.apply(this, arguments);
+                                    }
+
+                                });
+
+                            };
+                            $(window).load(function () {
+                                $('body.waitMe_body').addClass('hideMe');
+                                setTimeout(function () {
+                                    $('body.waitMe_body').find('.waitMe_container:not([data-waitme_id])').remove();
+                                    $('body.waitMe_body').removeClass('waitMe_body hideMe');
+                                }, 200);
+                            });
+                        })(jQuery);
+                    });
+            </script>
+
+
+            <div class="col-sm-4 col-sm-offset-1">
+                <div class="additional">
+                    <h3>Need Help?</h3>
+                    <p>Don’t hesitate to ask us something. Email us directly <a href="#">support@mshipper.com</a> or call us at <b>1800-2700-683</b>. You can checkout our <a href="#">FAQ</a>  page to get more information about our products.</p>
+                </div>
+
+                <div class="phone">
+                    <h1 class="c-primary">1800-2700-683</h1>
+                    AVAILABLE AT 12PM - 18PM
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="copyright">
+                <p class="pull-left sm-pull-reset">
+                    <span>Copyright <span class="copyright">©</span> 2016 </span>
+                    <span>mShipper</span>.
+                    <span>All rights reserved. </span>
+                </p>
+                <p class="pull-right sm-pull-reset">
+                    <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    }
+    </form>
+    </div>
+    <!-- END PAGE CONTENT -->

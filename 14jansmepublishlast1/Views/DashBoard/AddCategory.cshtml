@@ -1,0 +1,243 @@
+﻿@model SMEPanel.Models.Universal
+
+@{
+    ViewBag.Title = "AddCategory";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<h2>Add Category</h2>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href="~/assets/css/ui.css" rel="stylesheet">
+<script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script> <!-- Tables Filtering, Sorting & Editing -->
+
+
+<div class="page-content page-thin">
+
+    <div class="row">
+        <div class="">
+
+            <div class="col-lg-6 col-sm-offset-2">
+                <div class="panel panel-default no-bd">
+                    <div class="panel-header bg-dark">
+                        <h2 class="panel-title"><strong>Category</strong> </h2>
+                    </div>
+                    <div class="panel-body bg-white">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <form action="@Url.Action("AddCategory","DashBoard")"    method="post">
+                                    <div class="row">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Add Category</label>
+                                                    <div class="prepend-icon">
+                                                        <input type="text" name="category" id="category" onkeyup="CheckCategory()" class="form-control"  placeholder="Enter Category Name">
+                                                        <i class="icon-clock"></i>
+                                                    </div>
+                                                    <div id="errcategory" style="color:red"></div>
+                                                    <input type="hidden" id="flag" name="flag" />
+                                                    <link href="~/assets/sweetalert.css" rel="stylesheet" />
+                                                    <script src="~/assets/sweetalert.min.js"></script>
+                                                    <script type="text/javascript">
+                                                        function CheckCategory() {
+                                                            var category = $("#category").val();
+                                                           
+                                                            $("#flag").val("0");
+                                                            var msg = "";
+                                                            if (category == "" || category == null) {
+                                                                $("#errcategory").html("Enter Category");
+                                                            }
+                                                            else {
+                                                                $("#errcategory").html("");
+                                                                $.ajax({
+                                                                    url: '/dashboard/CheckCategory',
+                                                                    data: { 'category': category },
+                                                                    type: 'post',
+                                                                    cache: false,
+                                                                    success: function (data) {
+
+                                                                        msg = data;
+                                                                        if (msg == "Please Enter Different Category")
+                                                                        {
+                                                                            ////alert("Please Enter Different Category");
+                                                                            swal("Please Enter Different Category! It's already present");
+                                                                            $("#flag").val("1");
+                                                                            
+                                                                        }
+                                                                    }
+                                                                });
+                                                               
+                                                            }
+                                                            
+                                                        }
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="flag" name="flag" value="@ViewBag.id" />
+                                    <div class="text-center  m-t-20">
+                                        <input type="submit" name="btnCategory" id="btnCategory"  class="btn btn-embossed btn-primary" value="Add" />
+                                        <button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>
+                                    </div>
+                                    <link href="~/assets/sweetalert.css" rel="stylesheet" />
+                                    <script src="~/assets/sweetalert.min.js"></script>
+                                    <script type="text/javascript">
+                                        $(document).ready(function () {
+                                            $("#btnCategory").click(function () {
+                                                var category = $("#category").val();
+                                                // alert($("#flag").val());
+                                                if (category == "" || category == null) {
+                                                    $("#errcategory").html("Enter Category");
+                                                    return false;
+                                                }
+                                                else if ($("#flag").val() == "1") {
+                                                    //alert("Please Enter Different Category");
+                                                    swal("Please enter different category! It's already present");
+
+                                                    return false;
+                                                }
+                                                else {
+                                                    $("#errcategory").html("");
+                                                    return true;
+                                                }
+                                            });
+                                        });
+                                        
+                                    </script>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                @*<script type="text/javascript">
+                    $(document).ready(function () {
+                        $(".edit").click(function () {
+                            var id = $(this).attr('id');
+                            document.getElementById("categoryName").value=(".edit" + id).val();
+                        });
+                    });
+                </script>*@
+                
+
+        </div>
+     
+
+
+
+            <!-- BEGIN PAGE CONTENT -->
+   
+                
+                <div class="row" id="screen">
+                    <div class="col-lg-12 portlets">
+                        <div class="panel">
+                            <div class="panel-header panel-controls">
+                                <h3><i class="fa fa-table"></i> <strong>Category</strong></h3>
+                            </div>
+                            <div class="panel-content">
+                                
+                                <table class="table table-hover dataTable" id="table-editable">
+                                    <thead>
+                                        <tr>
+                                            <th>Category Name</th>
+                                           
+                                            <th class="text-right"></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @*<tr>
+                                            <td>Smith</td>
+                                            <td>John</td>
+                                            <td>435</td>
+                                  
+                                            <td class="text-right">
+                                                <a class="edit btn btn-sm btn-default" href="javascript:;"><i class="icon-note"></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;"><i class="icons-office-52"></i></a>
+                                            </td>
+                                        </tr>*@
+                                        @foreach (var item in Model.objcategory)
+                                        {
+                                            <tr id="@Html.DisplayFor(modelItem => item.ID)">
+                                                @Html.HiddenFor(modelItem => item.category, new { @class = "cname" + @item.ID })
+                                                <td>@Html.DisplayFor(modelItem => item.category)</td>
+                                              
+                                                <td class="text-right">
+                                                    @*<a class="edit btn btn-sm btn-default" href="/DashBoard/AddShops" data-toggle="modal" data-target="#modal-responsive" new { id="@item.ID" } name="Edit"><i class="icon-note"></i></a>
+                                                    <a class="delete btn btn-sm btn-danger" href="#modal-slideright" data-toggle="modal" data-target="#modal-slideright" new { id="@item.ID" } name="Edit"><i class="icons-office-52"></i></a>*@
+                                                    <a class="edit btn btn-sm btn-default" id="@item.ID" href="javascript:;"><i class="icon-note" id="@item.ID"></i></a>  <a class="delete btn btn-sm btn-danger" id="@item.ID" href="javascript:;"><i class="icons-office-52"></i></a>
+                                                </td>
+                                                <input type="hidden" id="id+@item.ID" name="id" />
+                                            </tr>
+                                        }
+                                        
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+    
+
+
+            <!-- END PAGE CONTENT -->
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <div class="footer">
+            <div class="copyright">
+                <p class="pull-left sm-pull-reset">
+                    <span>Copyright <span class="copyright">©</span> 2015 </span>
+                    <span>mShipper</span>.
+                    <span>All rights reserved. </span>
+                </p>
+                <p class="pull-right sm-pull-reset">
+                    <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- BEGIN PAGE CONTENT -->
+
+        <script src="~/assets/js/pages/table_editable.js"></script>
+
+           <script>
+
+           $('#table-editable a.edit').live('click', function (e) {
+               e.preventDefault();
+               /* Get the row as a parent of the link that was clicked on */
+               var nRow = $(this).parents('tr')[0];
+
+               if (nEditing !== null && nEditing != nRow) {
+                   restoreRow(oTable, nEditing);
+                   editRow(oTable, nRow);
+                   nEditing = nRow;
+               } else if (nEditing == nRow && this.innerHTML == "Save") {
+                   /* This row is being edited and should be saved */
+                   saveRow(oTable, nEditing);
+                   nEditing = null;
+                   // alert("Updated! Do not forget to do some ajax to sync with backend :)");
+               } else {
+                   /* No row currently being edited */
+                   editRow(oTable, nRow);
+                   nEditing = nRow;
+               }
+           });
+
+       </script>
+        <!-- END PAGE CONTENT -->
+

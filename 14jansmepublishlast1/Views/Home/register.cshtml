@@ -1,0 +1,1174 @@
+﻿@model SMEPanel.Models.Universal
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>mShipper | SME </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="" name="description" />
+    <meta content="themes-lab" name="author" />
+    <link rel="shortcut icon" href="~/assets/img/favicon.png">
+    <link href="~/assets/css/style.css" rel="stylesheet">
+    <link href="~/assets/css/ui.css" rel="stylesheet">
+    <link href="~/assets/plugins/icheck/skins/all.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-loading/lada.min.css" rel="stylesheet">
+
+
+    <link href="~/assets/css/theme.css" rel="stylesheet">
+
+
+    <!-- BEGIN PAGE STYLE -->
+    <link href="~/assets/plugins/metrojs/metrojs.min.css" rel="stylesheet">
+    <link href="~/assets/plugins/maps-amcharts/ammap/ammap.min.css" rel="stylesheet">
+    <link href="~/assets/plugins/dropzone/dropzone.min.css" rel="stylesheet">
+    <link href="~/assets/plugins/input-text/style.min.css" rel="stylesheet">
+    <link href="~/assets/plugins/datatables/dataTables.min.css" rel="stylesheet">
+    <script src="~/assets/plugins/modernizr/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <style>
+        .form-error {
+            color: #994F4F;
+            font-style: italic;
+            margin-top: 10px;
+            font-size: small;
+        }
+    </style>
+
+</head>
+@*<body class="account separate-inputs boxed" data-page="signup">
+    <!-- BEGIN LOGIN BOX -->
+
+    <div class="page-content page-thin">
+        <div class="row">
+            <br />
+            <div class="col-md-8 col-sm-offset-2">
+                <div class="panel panel-default no-bd">
+                    <div class="panel-header bg-dark">
+                        <center>   <h2 class="panel-title"><strong>Registration Form</strong> </h2></center>
+                    </div>
+                    <div class="panel-body bg-white">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <form action="@Url.Action("Register", "home")" class="form-validation" enctype="multipart/form-data" name="Addsme" method="post">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <script>
+                                           $(document).ready(function () {
+                                               $("#Name").blur(function () {
+                                                   var nameText = $("#Name").val();
+                                                   //alert($("#Mobile").val());
+
+                                                   if (Name.value.length != 3) {
+                                                       $("#errname").html('Please enter valid name');
+                                                       return false;
+                                                   }
+                                                   else {
+                                                       $("#errname").html("");
+                                                   }
+
+                                               });
+                                           });
+                                           function validateName(nameText) {
+
+                                               var space = /\s+/;
+
+                                               if (space.test(nameText)) {
+                                                   return true;
+
+                                               }
+                                               else {
+                                                   return false;
+                                               }
+                                           }
+                                            </script>
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" name="Name" id="Name" onblur="validateName()" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-4">
+                                                    <span class="input__label-content input__label-content--hoshi">Name</span>
+
+                                                </label>
+                                            </span>
+                                            <div id="errname" style="color:red"></div>
+                                        </div>
+                                        <div class="col-sm-4">
+
+                                            <span class="input input--hoshi">
+                                                <script type="text/javascript">
+                                        function ValidateEmail(email) {
+                                        var expr ="/^[\w\-\.\+]+\@@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/";
+                                            return expr.test(email);
+                                             };
+                                        $("#Email").blur("click", function () {
+                                        if (!ValidateEmail($("#Email").val())) {
+                                          alert("Invalid email address.");
+                                            }
+                                                         else {
+                                    alert("Valid email address.");
+                                    }
+                                        });
+                                                </script>
+                                                <input class="input__field input__field--hoshi " type="email" name="Email" id="Email" aria-required="true" required onblur=" ValidateEmail()" />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-2" for="input-5">
+                                                    <span class="input__label-content input__label-content--hoshi">Email</span>
+                                                </label>
+
+                                            </span>
+
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" name="ShopName" id="ShopName" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Shop Name</span>
+                                                </label>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+                                            <script type="text/javascript">
+                                           google.maps.event.addDomListener(window, 'load', function () {
+                                               var places = new google.maps.places.Autocomplete(document.getElementById('txtPlaces'));
+                                               google.maps.event.addListener(places, 'place_changed', function () {
+                                                   var place = places.getPlace();
+
+
+                                               });
+                                           });
+                                            </script>
+
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" placeholder="" type="text" name="Location" id="txtPlaces" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Location</span>
+                                                </label>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" name="Address" id="Address" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-2" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Address</span>
+                                                </label>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+                                            <script>
+                                           $(document).ready(function () {
+                                               $("#Mobile").keypress(function (e) {
+                                                   if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                                                       $("#Mobile-error").html("Digits Only").show().fadeOut("slow");
+                                                       return false;
+                                                   }
+                                               });
+                                               $("#Mobile").blur(function () {
+                                                   var phone = $("#Mobile").val();
+                                                   //alert($("#Mobile").val());
+
+                                                   if (Mobile.value.length != 10) {
+                                                       $("#Mobile-error").html('Please enter valid mobile no');
+                                                       return false;
+                                                   }
+                                                   else {
+                                                       $("#Mobile-error").html("");
+                                                   }
+
+                                               });
+                                           });
+                                           function validatePhone(phoneText) {
+                                               var filter = /^[0-9-+]+$/;
+                                               var space = /\s+/;
+                                               if (filter.test(phoneText)) {
+                                                   return true;
+                                               }
+                                               else {
+                                                   return false;
+                                               }
+                                               if (space.test(phoneText)) {
+                                                   return true;
+
+                                               }
+                                               else {
+                                                   return false;
+                                               }
+                                           }
+                                            </script>
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" name="Mobile" id="Mobile" onblur="validatePhone(),validatespace()" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Mobile</span>
+                                                </label>
+                                            </span>
+                                            <div id="Mobile-error" style="color:red"></div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <script>
+                                           $(document).ready(function () {
+                                               $("#AltMobile").keypress(function (e) {
+                                                   if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                                                       $("#AltMobile-error").html("Digits Only").show().fadeOut("slow");
+                                                       return false;
+                                                   }
+                                               });
+                                               $("#AltMobile").blur(function () {
+                                                   var phone = $("#AltMobile").val();
+                                                   //alert($("#Mobile").val());
+
+                                                   if (AltMobile.value.length != 10) {
+                                                       $("#AltMobile-error").html('Please enter valid mobile no');
+                                                       return false;
+                                                   }
+                                                   else {
+                                                       $("#AltMobile-error").html("");
+                                                   }
+
+                                               });
+                                           });
+                                           function validatealtPhone(phone) {
+                                               var filter = /^[0-9-+]+$/;
+                                               var space = /\s+/;
+                                               if (filter.test(phone)) {
+                                                   return true;
+                                               }
+                                               else {
+                                                   return false;
+                                               }
+                                               if (space.test(phone)) {
+                                                   return true;
+
+                                               }
+                                               else {
+                                                   return false;
+                                               }
+                                           }
+                                            </script>
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" name="AltMobile" id="AltMobile" onblur="validatealtPhone()" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Alternate Mobile</span>
+                                                </label>
+                                            </span>
+                                            <div id="AltMobile-error" style="color:red"></div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" name="Vattin" id="Vattin" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-2" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">VAT/TIN</span>
+                                                </label>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" name="Dshipment" id="Dshipment" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Avg Daily Shippements</span>
+                                                </label>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Credit Opportunity</label>
+                                                <select class="form-control form-white" data-style="white" name="Copportunity" id="Copportunity" data-placeholder="Select...">
+                                                    <option value="Weekly">Weekly</option>
+                                                    <option value="Monthly">Monthly</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Pin</label>
+                                                <select class="form-control" name="pin" id="pin" data-search="true">
+                                                    @foreach (var itempincode in Model.objpincode)
+                                                    {
+                                                        <option value="@itempincode.district">@itempincode.PinCode</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="hide" id="hide" />
+                                        @*jquery for get zone by pincode*@
+                                        @*<script>
+                                        $(document).ready(function () {
+
+                                            $("#pin").change(function () {
+                                                document.getElementById("zone").value = $("#" + $(this).attr("name") + " :selected").val();
+                                                document.getElementById("hide").value = $("#" + $(this).attr("name") + " :selected").text();
+                                            });
+                                        });
+                                        </script>
+                                        <div class="col-sm-4">
+                                            <span class="input input--hoshi">
+                                                <input class="input__field input__field--hoshi" type="text" id="zone" name="zone" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Zone</span>
+                                                </label>
+                                            </span>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <span class="input input--hoshi">
+                                                <img id="myImg1" height="180" width="180" class="img-rounded img-thumbnail" alt="" required />
+                                                <input class="input__field input__field--hoshi" type="file" name="File" id="File" onchange="ValidateSingleInput(this), validate(this),readURL(this)" placeholder="" required />
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="input-6">
+                                                    <span class="input__label-content input__label-content--hoshi">Upload Picture</span>
+                                                </label>
+                                            </span>
+                                            <div id="viewimage"></div>
+                                            <div id="viewimage1"></div>
+                                        </div>
+                                        <script type='text/javascript'>
+                                       var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
+                                       function ValidateSingleInput(oInput) {
+                                           if (oInput.type == "file") {
+                                               var sFileName = oInput.value;
+                                               if (sFileName.length > 0) {
+                                                   var blnValid = false;
+                                                   for (var j = 0; j < _validFileExtensions.length; j++) {
+                                                       var sCurExtension = _validFileExtensions[j];
+                                                       if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                                                           blnValid = true;
+                                                           break;
+                                                       }
+                                                   }
+
+                                                   if (!blnValid) {
+
+                                                       //swal("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+
+                                                       document.getElementById('viewimage').innerHTML = "<font color='red'>Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", ");
+
+                                                       oInput.value = "";
+                                                       return false;
+                                                   }
+                                               }
+                                           }
+                                           return true;
+
+                                       }
+                                        </script>
+                                        <script>
+
+
+                                       function readURL(input) {
+                                           // alert("hello1");
+                                           if (input.files && input.files[0]) {
+
+                                               var image_holder = $("#image-holder");
+                                               image_holder.empty();
+
+
+                                               var reader = new FileReader();
+
+                                               reader.onload = function (e) {
+                                                   $('#myImg1')
+                                                   .attr('src', e.target.result)
+                                       .width(150)
+                                       .height(200);
+                                               };
+
+                                               image_holder.show();
+                                               reader.readAsDataURL(input.files[0]);
+                                           }
+                                       }
+
+
+
+
+                                        </script>
+                                        <script>
+
+                                       function validate() {
+                                           $("#viewimage1").html("");
+                                           $("#File").css("border-color", "#F0F0F0");
+                                           var file_size = $("#File")[0].files[0].size;
+                                           if (file_size > 2097152) {
+                                               //alert("File size is greater than 2MB");
+                                               $("#viewimage1").html("<font color=red>File size is greater than 2MB<font>");
+                                               $("#File").css("border-color", "#FF0000");
+                                               $("#File").val("");
+                                               return false;
+                                           }
+                                           return true;
+                                       }
+
+                                       $('#File').click(function () {
+                                           $("#viewimage1").html("");
+                                           $("#viewimage").html("");
+                                       });
+
+                                        </script>
+                                    </div>
+                                    <div class="col-sm-12>
+                                        <div class=" form-group">
+                                        <label class="control-label">Are you OK with our terms?</label>
+                                        <div class="option-group">
+                                            <label for="terms" class="m-t-10">
+                                                <input type="checkbox" name="terms" id="terms" data-checkbox="icheckbox_square-blue" required />
+                                                I agree with terms and conditions
+                                            </label>
+                                        </div>
+
+                                    </div>
+                            </div>
+                            <div class="text-center  m-t-20">
+                                <input type="submit" name="Addsme" id="Addsme" value="Register" class="btn btn-embossed btn-primary" />
+                                <button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>
+                                <div class="clearfix">
+                                    <p class="pull-right m-t-20" style="color:black;"><a href="index">Already have an account? Sign In</a></p>
+                                </div>
+                            </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="footer">
+        <div class="copyright">
+            <p class="pull-left sm-pull-reset">
+                <span>Copyright <span class="copyright">©</span> 2015 </span>
+                <span>THEMES LAB</span>.
+                <span>All rights reserved. </span>
+            </p>
+            <p class="pull-right sm-pull-reset">
+                <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+            </p>
+        </div>
+    </div>
+    </div>
+
+
+
+    <script src="~/assets/js/pages/layouts_api.js"></script>
+    <!-- END PRELOADER -->
+    <a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
+
+    <script src="~/assets/plugins/jquery/jquery-1.11.1.min.js"></script>
+    <script src="~/assets/plugins/jquery/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/assets/plugins/jquery-ui/jquery-ui-1.11.2.min.js"></script>
+    <script src="~/assets/plugins/gsap/main-gsap.min.js"></script>
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/assets/plugins/jquery-cookies/jquery.cookies.min.js"></script> <!-- Jquery Cookies, for theme -->
+    <script src="~/assets/plugins/jquery-block-ui/jquery.blockUI.min.js"></script> <!-- simulate synchronous behavior when using AJAX -->
+    <script src="~/assets/plugins/translate/jqueryTranslator.min.js"></script> <!-- Translate Plugin with JSON data -->
+    <script src="~/assets/plugins/bootbox/bootbox.min.js"></script> <!-- Modal with Validation -->
+    <script src="~/assets/plugins/mcustom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script> <!-- Custom Scrollbar sidebar -->
+    <script src="~/assets/plugins/bootstrap-dropdown/bootstrap-hover-dropdown.min.js"></script> <!-- Show Dropdown on Mouseover -->
+    <script src="~/assets/plugins/charts-sparkline/sparkline.min.js"></script> <!-- Charts Sparkline -->
+    <script src="~/assets/plugins/retina/retina.min.js"></script> <!-- Retina Display -->
+    <script src="~/assets/plugins/select2/select2.min.js"></script> <!-- Select Inputs -->
+    <script src="~/assets/plugins/icheck/icheck.min.js"></script> <!-- Checkbox & Radio Inputs -->
+    <script src="~/assets/plugins/backstretch/backstretch.min.js"></script> <!-- Background Image -->
+    <script src="~/assets/plugins/bootstrap-progressbar/bootstrap-progressbar.min.js"></script> <!-- Animated Progress Bar -->
+    <script src="~/assets/js/builder.js"></script> <!-- Theme Builder -->
+    <script src="~/assets/js/sidebar_hover.js"></script> <!-- Sidebar on Hover -->
+    <script src="~/assets/js/application.js"></script> <!-- Main Application Script -->
+    <script src="~/assets/js/plugins.js"></script> <!-- Main Plugin Initialization Script -->
+    <script src="~/assets/js/widgets/notes.js"></script> <!-- Notes Widget -->
+    <!--  <script src="~/assets/js/quickview.js"></script> <!-- Chat Script -->
+    <script src="~/assets/js/pages/search.js"></script> <!-- Search Script -->
+    <!-- BEGIN PAGE SCRIPT -->
+    @*<script src="~/assets/plugins/noty/jquery.noty.packaged.min.js"></script>*@  <!-- Notifications -->
+    @*<script src="~/assets/plugins/bootstrap-editable/js/bootstrap-editable.min.js"></script> <!-- Inline Edition X-editable -->
+    <script src="~/assets/plugins/bootstrap-context-menu/bootstrap-contextmenu.min.js"></script> <!-- Context Menu -->
+    <script src="~/assets/plugins/multidatepicker/multidatespicker.min.js"></script> <!-- Multi dates Picker -->
+    <script src="~/assets/js/widgets/todo_list.js"></script>
+    <script src="~/assets/plugins/metrojs/metrojs.min.js"></script> <!-- Flipping Panel -->
+    <script src="~/assets/plugins/charts-chartjs/Chart.min.js"></script>  <!-- ChartJS Chart -->
+    <script src="~/assets/plugins/charts-highstock/js/highstock.min.js"></script> <!-- financial Charts -->
+    <script src="~/assets/plugins/charts-highstock/js/modules/exporting.min.js"></script> <!-- Financial Charts Export Tool -->
+    <script src="~/assets/plugins/maps-amcharts/ammap/ammap.min.js"></script> <!-- Vector Map -->
+    <script src="~/assets/plugins/maps-amcharts/ammap/maps/js/worldLow.min.js"></script> <!-- Vector World Map  -->
+    <script src="~/assets/plugins/maps-amcharts/ammap/themes/black.min.js"></script> <!-- Vector Map Black Theme -->
+    <script src="~/assets/plugins/skycons/skycons.min.js"></script> <!-- Animated Weather Icons -->
+    <script src="~/assets/plugins/simple-weather/jquery.simpleWeather.js"></script> <!-- Weather Plugin -->
+    <script src="~/assets/js/widgets/widget_weather.js"></script>
+    <script src="~/assets/js/pages/dashboard.js"></script>
+    <!-- END PAGE SCRIPT -->
+
+
+    <script src="~/assets/plugins/countup/countUp.min.js"></script> <!-- Animated Counter Number -->
+    <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script> <!-- Tables Filtering, Sorting & Editing -->
+    <script src="~/assets/js/pages/table_dynamic.js"></script>
+
+    <script src="~/assets/plugins/jquery-validation/jquery.validate.js"></script> <!-- Form Validation -->
+    <script src="~/assets/plugins/jquery-validation/additional-methods.min.js"></script> <!-- Form Validation Additional Methods - OPTIONAL -->
+
+    <script src="~/assets/plugins/switchery/switchery.min.js"></script> <!-- IOS Switch -->
+    <script src="~/assets/plugins/bootstrap-tags-input/bootstrap-tagsinput.min.js"></script> <!-- Select Inputs -->
+    <script src="~/assets/plugins/dropzone/dropzone.min.js"></script>  <!-- Upload Image & File in dropzone -->
+    <script src="~/assets/js/pages/form_icheck.js"></script>  <!-- Change Icheck Color - DEMO PURPOSE - OPTIONAL -->
+    <script src="~/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/assets/plugins/timepicker/jquery-ui-timepicker-addon.min.js"></script> <!-- Time Picker -->
+
+    <script src="~/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> <!-- >Bootstrap Date Picker -->
+
+    <script src="~/assets/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script> <!-- A mobile and touch friendly input spinner component for Bootstrap -->
+    <!-- END LOCKSCREEN BOX -->
+
+
+
+    <script src="~/assets/plugins/bootstrap-loading/lada.min.js"></script>
+
+
+    <script src="~/assets/js/pages/login-v1.js"></script>
+</body>*@*
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<body class="account separate-inputs boxed" data-page="signup">
+    <!-- BEGIN LOGIN BOX -->
+    <div class="col-sm-6">
+        <div class="container" id="login-block" style="margin-top: -70px;">
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-md-offset-3">
+                    <div class="account-wall" style="border-radius: 36px;">
+                        <i class="user-img icons-faces-users-03"></i>
+                        <form action="@Url.Action("Registers", "home")" class="form-validation" enctype="multipart/form-data" name="Addsme" method="post">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                  
+                                    
+                                    <script type="text/javascript">
+                                        function validateName(){                                                                                     
+                                                var nameText = document.getElementById("Name").value;
+                                               
+                                                //if (nameText== " " || nameText == null)
+                                                //{
+                                                //    $("#errname").html('Please enter name');
+                                                //    return false;
+                                                //}
+                                                if (nameText=="" || nameText==null) {
+                                                    $("#errname").html('Please enter name');
+                                                    return false;
+                                                }
+                                                else {
+                                                    $("#errname").html("");
+                                                }
+                                            }
+                                           
+                                        //function validateName(nameText) {
+
+                                        //    var space = /\s+/;
+
+                                        //    if (space.test(nameText)) {
+                                        //        return true;
+
+                                        //    }
+                                        //    else {
+                                        //        return false;
+                                        //    }
+                                        //}
+                                    </script>
+                                    <label for="Name">Name</label>
+                                    <div class="append-icon">
+                                        <input type="text" name="Name" id="Name" class="form-control form-white" placeholder="Name" onblur="validateName()" @*required autofocus*@>
+                                        <i class="icon-user"></i>
+                                    </div>
+                                    <div id="errname" style="color:red"></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="email">Email</label>
+                                    <script type="text/javascript">
+                                        function ValidateEmail() {
+                                            // alert("hiii");
+                                            $("#erremail").html("");
+                                            var expr = "^[a-zA-Z0-9_.+-]+@@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+                                            //var expr = "/^[\w\-\.\+]+\@@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/";
+                                            var email = $("#email").val();
+                                            //alert(email);
+                                            if (email == "" || email == null)
+                                            {
+                                                $("#erremail").html("Enter Email Address");
+                                            }
+                                            if (email.match(expr)) {
+                                                $("#erremail").html("");
+                                            }
+                                            else {
+                                                $("#erremail").html("Enter Valid Email Address");
+
+                                            }
+                                        }
+                                    </script>
+                                    <div class="append-icon">
+                                        <input type="text" name="email" id="email" class="form-control form-white lastname" onblur="ValidateEmail();" placeholder="Email" @*required*@>
+                                        <i class="icon-envelope"></i>
+                                    </div>
+                                    <div id="erremail" style="color:red"></div>
+                                </div>
+                            </div><br />
+                            <div class="row">
+                            <script type="text/javascript">
+                                function ValidateShopName()
+                                {
+                                    var shopname = document.getElementById("ShopName").value;
+                                    if(shopname=="" || shopname==null)
+                                    {
+                                        $("#errshopname").html("Please Enter Shopname");
+                                        //alert("Please Enter Shopname");
+                                    }
+                                    else
+                                    {
+                                        $("#errshopname").html("");
+                                    }
+
+                                }
+                            </script>
+                                <div class="col-sm-6">
+                                    <label for="ShopName">Store Name</label>
+                                    <div class="append-icon">
+                                        <input type="text" name="ShopName" id="ShopName" class="form-control form-white password" onblur="ValidateShopName()" placeholder="Store Name">
+                                    </div>
+                                    <div id="errshopname" style="color:red"></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="txtPlaces">Location</label>
+                                    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+                                    <script type="text/javascript">
+                                        google.maps.event.addDomListener(window, 'load', function () {
+                                            var places = new google.maps.places.Autocomplete(document.getElementById('txtPlaces'));
+                                            google.maps.event.addListener(places, 'place_changed', function () {
+                                                var place = places.getPlace();
+                                            });
+                                        });
+                                    </script>
+                                    <script type="text/javascript">
+                                function ValidateLocation()
+                                {
+                                    
+                                    var location = document.getElementById("txtPlaces").value;
+                                  
+                                    if (location == "" || location == null)
+                                    {
+                                        $("#errlocation").html("Please Enter Location");
+                                        //alert("Please Enter Shopname");
+                                    }
+                                    else
+                                    {
+                                        $("#errlocation").html("");
+                                    }
+
+                                }
+                                    </script>
+                                    <div class="append-icon">
+                                        <input type="text" name="location" id="txtPlaces" class="form-control form-white"  placeholder="Location" required>
+
+                                    </div>
+                                    <div id="errlocation" style="color:red"></div>
+                                </div>
+                            </div><br />
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <script type="text/javascript">
+                                function ValidateLocation()
+                                {
+                                    var address = document.getElementById("Address").value;
+                                    if (address == "" || address == null)
+                                    {
+                                        $("#erraddress").html("Please Enter Address");
+                                        //alert("Please Enter Shopname");
+                                    }
+                                    else
+                                    {
+                                        $("#erraddress").html("");
+                                    }
+
+                                }
+                                    </script>
+                                    <label for="Address">Address</label>
+                                    <div class="append-icon">
+                                        <input type="text" name="Address" id="Address" class="form-control form-white password" onblur="ValidateLocation()" placeholder="Address" @*required*@>
+
+                                    </div>
+                                    <div id="erraddress" style="color:red"></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="mobile">Mobile</label>
+                                    <input type="hidden" id="flag" />
+                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("#mobile").keypress(function (e) {
+                                                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                                                    $("#Mobile-error").html("Digits Only").show().fadeOut("slow");
+                                                    return false;
+                                                }
+                                            });
+                                            $("#mobile").blur(function () {
+                                                var phone = $("#mobile").val();
+                                                //alert($("#Mobile").val());
+                                                $("#flag").val("0");
+                                                if (phone.length!=10 ){
+                                                    $("#Mobile-error").html("Please enter valid mobile no");
+                                                    return false;
+                                                }
+                                                else {
+                                                    $("#Mobile-error").html("");
+                                                    var mobile = $("#mobile").val();
+                                                    var msg = "";
+                                                    $.ajax({
+                                                        url: '/home/checkmobile',
+                                                        data: { 'mobile': mobile },
+                                                        cache: false,
+                                                        type: 'get',
+                                                        success: function (data) {
+                                                            msg = data;
+                                                            if (msg == "Mobile Number Already Registered Please Enter Another Number") {
+                                                                $("#flag").val("1");
+                                                                alert(data);
+                                                            }
+                                                           
+                                                            
+                                                        },
+                                                        error: function () {
+                                                            alert(Error);
+                                                        },
+                                                    });
+                                                }
+
+                                            });
+                                        });
+                                        function validatePhone(phoneText) {
+                                            var filter = /^[0-9-+]+$/;
+                                            var space = /\s+/;
+                                            if (filter.test(phoneText)) {
+                                                return true;
+                                            }
+                                            else {
+                                                return false;
+                                            }
+                                            if (space.test(phoneText)) {
+                                                return true;
+
+                                            }
+                                            else {
+                                                return false;
+                                            }
+                                        }
+                                    </script>
+                                    <div class="append-icon">
+                                        <input type="text" name="mobile" id="mobile" class="form-control form-white email" placeholder="Mobile" onblur="validatePhone(),validatespace(),validatemobile()" @*required*@>
+
+                                    </div>
+                                    <div id="Mobile-error" style="color:red"></div>
+                                                                </div>
+                                
+                            </div><br />
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="AltMobile">Alternate Mobile</label>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("#AltMobile").keypress(function (e) {
+                                                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                                                    $("#AltMobile-error").html("Digits Only").show().fadeOut("slow");
+                                                    return false;
+                                                }
+                                            });
+                                            $("#AltMobile").blur(function () {
+                                                var altphone = $("#AltMobile").val();
+                                                //alert($("#Mobile").val());
+
+                                                if (AltMobile.value.length != 10) {
+                                                    $("#AltMobile-error").html('Please enter valid mobile no');
+                                                    return false;
+                                                }
+                                                else {
+                                                    $("#AltMobile-error").html("");
+                                                }
+
+                                            });
+                                        });
+                                        function validatealtPhone(phone) {
+                                            var filter = /^[0-9-+]+$/;
+                                            var space = /\s+/;
+                                            if (filter.test(phone)) {
+                                                return true;
+                                            }
+                                            else {
+                                                return false;
+                                            }
+                                            if (space.test(phone)) {
+                                                return true;
+
+                                            }
+                                            else {
+                                                return false;
+                                            }
+                                        }
+                                    </script>
+
+                                    <div class="append-icon">
+                                        <input type="text" name="AltMobile" id="AltMobile" class="form-control form-white password" placeholder="Alternate Mobile" onblur="validatealtPhone()" @*required*@>
+
+                                    </div>
+                                    <div id="AltMobile-error" style="color:red"></div>
+                               </div>
+                                <div class="col-sm-6">
+                                    <script type="text/javascript">
+                                function ValidateVattin()
+                                {
+                                    var Vattin = document.getElementById("Vattin").value;
+                                    if (Vattin == "" || Vattin == null)
+                                    {
+                                        $("#errVattin").html("Please Enter Address");
+                                        //alert("Please Enter Shopname");
+                                    }
+                                    else
+                                    {
+                                        $("#errVattin").html("");
+                                    }
+
+                                }
+                                    </script>
+                                    <label for="Vattin">Vat/tin</label>
+                                    <div class="append-icon">
+                                        <input type="text" name="Vattin" id="Vattin" class="form-control form-white email" onblur="ValidateVattin()" placeholder="Vat/Tin" @*required*@>
+
+                                    </div>
+                                    <div id="errVattin" style="color:red"></div>
+                                </div>
+                            </div>
+                                <br />
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <script type="text/javascript">
+                                function ValidateDshipment()
+                                {
+                                    var Dshipment = document.getElementById("Dshipment").value;
+                                    if (Dshipment == "" || Dshipment == null)
+                                    {
+                                        $("#errDshipment").html("Please Enter Daily Shipment");
+                                        //alert("Please Enter Shopname");
+                                    }
+                                    else
+                                    {
+                                        $("#errDshipment").html("");
+                                    }
+
+                                }
+                                    </script>
+                                    <label for="Dshipment">Avg Daily Shipment</label>
+                                    <div class="append-icon">
+                                        <input type="text" name="Dshipment" id="Dshipment" class="form-control form-white password" onblur="ValidateDshipment()"  placeholder="Avg Daily Shipment">
+
+                                    </div>
+                                    <div id="errDshipment" style="color:red"></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <script type="text/javascript">
+                                        function Validatepin()
+                                {
+                                            var pin = document.getElementById("pin").value;
+                                            if (pin == "" || pin == null)
+                                    {
+                                                $("#errpin").html("Please Select Pincode");
+                                        //alert("Please Enter Shopname");
+                                    }
+                                    else
+                                    {
+                                                $("#errpin").html("");
+                                    }
+
+                                }
+                                    </script>
+                                   
+                                    <link href="~/assets/sweetalert.css" rel="stylesheet" />
+                                    <script src="~/assets/sweetalert.min.js"></script>
+
+                                    
+
+                                                                        @{
+            try
+            {
+                string str = TempData["Alert"].ToString();
+
+                <script type='text/javascript'>swal({   title: 'Congratulation',   text: 'Your profile has been  successfully registered , please login.',   type: 'success',   showCancelButton:false,   confirmButtonColor: '#b6ce38',   confirmButtonText: 'Ok',   closeOnConfirm: false }, function(){   window.location.href = '/home/index'; });</script>
+            }
+            catch { }
+        }
+                                    <label for="pin">Pincode</label>
+                                    <div class="append-icon">
+                                        <select class="form-control" name="pin" id="pin" onblur="Validatepin()" data-placeholder="Select....." required>
+                                            <option value="">Select pincode....</option>
+                                            @foreach (var itempincode in Model.objpincode)
+                                            {
+                                                <option value="@itempincode.district">@itempincode.PinCode</option>
+                                            }
+                                        </select>
+                                        <input type="hidden" id="hidepin" name="hidepin" />
+
+                                        <input type="hidden" id="message" value="@ViewBag.msg" />@*For message display after registeration*@
+                                        @*start script for message display*@
+                                        <script type="text/javascript">
+
+
+
+
+
+                                            //$(document).ready(function(){
+                                            //    var msg = $("#message").val();
+                                            //    //alert(msg);
+                                            //    if ($("#message").val() == "" || $("#message").val() == null) {
+
+
+                                            //    }
+                                            //    else {
+                                            //        alert("Registered successfully! Please login to access your account");
+                                            //        $("#message").val('');
+                                            //        window.location.href = '/home/index';
+                                            //    }
+                                            //}) 
+                                                
+                                            
+                                        </script>
+                                        @*end script for message display*@
+
+                                        @*jquery for get zone by pincode*@
+                                        <script>
+                                            $(document).ready(function () {
+
+                                                $("#pin").change(function () {
+                                                    document.getElementById("zone").value = $("#" + $(this).attr("name") + " :selected").val();
+                                                    document.getElementById("hidepin").value = $("#" + $(this).attr("name") + " :selected").text();
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                    <div id="errpin" style="color:red"></div>
+                                </div>
+                                </div><br/>
+                                @*<div class="col-sm-6">
+                                    <script type="text/javascript">
+                                        function ValidateCopportunity()
+                                {
+                                    var Copportunity = document.getElementById("Copportunity").value;
+                                    if (Copportunity == "" || Copportunity == null)
+                                    {
+                                        $("#errCopportunity").html("Please Enter Credit Opportunity");
+                                        //alert("Please Enter Shopname");
+                                    }
+                                    else
+                                    {
+                                        $("#errCopportunity").html("");
+                                    }
+
+                                }
+                                    </script>
+                                    <label for="Copportunity">Credit Opportunity</label>
+                                    <div class="append-icon">
+                                        <select class="form-control form-white" data-style="white" name="Copportunity" id="Copportunity" onblur="ValidateCopportunity();" data-placeholder="Select...">
+                                            <option value="Weekly">Weekly</option>
+                                            <option value="Monthly">Monthly</option>
+
+                                        </select>
+
+                                    </div>
+                                     <div id="errCopportunity" style="color:red"></div>
+                                </div>
+                            </div><br />*@
+                            <div class="row">
+                                
+                                <div class="col-sm-6">
+                                    <label for="zone">Zone</label>
+                                    <div class="append-icon">
+                                        <input type="text" name="zone" id="zone" class="form-control form-white password" readonly="readonly" placeholder="Zone" required>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="file">Upload Picture</label>
+                                    <div class="append-icon">
+                                        <input type="file" name="file" id="file" class="form-control form-white file" placeholder="" onchange="ValidateSingleInput(this), validate(this),readURL(this)" required>
+                                    </div>
+                                    <div id="viewimage"></div>
+                                    <div id="viewimage1"></div>
+                                    <script type='text/javascript'>
+                                        var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
+                                        function ValidateSingleInput(oInput) {
+                                            if (oInput.type == "file") {
+                                                var sFileName = oInput.value;
+                                                if (sFileName.length > 0) {
+                                                    var blnValid = false;
+                                                    for (var j = 0; j < _validFileExtensions.length; j++) {
+                                                        var sCurExtension = _validFileExtensions[j];
+                                                        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                                                            blnValid = true;
+                                                            break;
+                                                        }
+                                                    }
+
+                                                    if (!blnValid) {
+
+                                                        //swal("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+
+                                                        document.getElementById('viewimage').innerHTML = "<font color='red'>Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", ");
+
+                                                        oInput.value = "";
+                                                        return false;
+                                                    }
+                                                }
+                                            }
+                                            return true;
+
+                                        }
+                                    </script>
+                                    <script>
+                                        function readURL(input) {
+                                            // alert("hello1");
+                                            if (input.files && input.files[0]) {
+
+                                                var image_holder = $("#image-holder");
+                                                image_holder.empty();
+
+
+                                                var reader = new FileReader();
+
+                                                reader.onload = function (e) {
+                                                    $('#myImg1')
+                                                    .attr('src', e.target.result)
+                                        .width(150)
+                                        .height(200);
+                                                };
+
+                                                image_holder.show();
+                                                reader.readAsDataURL(input.files[0]);
+                                            }
+                                        }
+
+
+
+
+                                    </script>
+                                    <script>
+
+                                        function validate() {
+                                            $("#viewimage1").html("");
+                                            $("#File").css("border-color", "#F0F0F0");
+                                            var file_size = $("#File")[0].files[0].size;
+                                            if (file_size > 2097152) {
+                                                //alert("File size is greater than 2MB");
+                                                $("#viewimage1").html("<font color=red>File size is greater than 2MB<font>");
+                                                $("#File").css("border-color", "#FF0000");
+                                                $("#File").val("");
+                                                return false;
+                                            }
+                                            return true;
+                                        }
+
+                                        $('#File').click(function () {
+                                            $("#viewimage1").html("");
+                                            $("#viewimage").html("");
+                                        });
+
+                                    </script>
+                                </div>
+
+                            </div><br />
+                            <div class="row">                             
+                                <div class="col-sm-6">
+                                    <script type="text/javascript">
+                                        function ValidateTerms()
+                                        {
+                                            var terms = document.getElementById("terms").value;
+                                            if (terms == "" || terms == null)
+                                            {
+                                                $("#errterms").html("Please Select terms and conditions");
+                                        //alert("Please Enter Shopname");
+                                            }
+                                            else
+                                            {
+                                                $("#errterms").html("");
+                                            }
+
+                                        }
+                                    </script>
+
+                                    <label for="terms" class="m-t-10">
+                                        <input type="checkbox" name="terms" id="terms" onblur="ValidateTerms()" data-checkbox="icheckbox_square-blue" required/>
+                                       <a href="/dashboard/Terms">I agree with terms and conditions</a>
+                                    </label>
+                                </div>
+                                <div id="errterms" style="color:red"></div>
+                                
+                            
+                           
+                            </div><br />
+                            <div class="row">
+                                <script type="text/javascript">
+                                    $(document).ready(function () {                                       
+                                        $("#Addsme").click(function () {
+                                            $("#errregisterbtn").html("");                                                                                                                              
+                                            if (document.getElementById("Name").value == "" || $("#email").val() == "" || document.getElementById("ShopName").value == "" || document.getElementById("txtPlaces").value == "" || document.getElementById("Address").value == "" || $("#mobile").val() == "" || $("#AltMobile").val() == "" || document.getElementById("Vattin").value == "" || document.getElementById("Dshipment").value == "" || document.getElementById("file").value == "" || document.getElementById("terms").value == "" || document.getElementById("pin").value == "")
+                                            {
+                                                
+                                                $("#errregisterbtn").html("All Fields Are Required");
+                                                return false;
+                                            }
+                                            else if (document.getElementById("Name").value == "" && $("#email").val() == "" && document.getElementById("ShopName").value == "" && document.getElementById("txtPlaces").value == "" && document.getElementById("Address").value == "" && $("#mobile").val() == "" && $("#AltMobile").val() == "" && document.getElementById("Vattin").value == "" && document.getElementById("Dshipment").value == "" && document.getElementById("file").value == "" && document.getElementById("pin").value == "")
+                                            {
+                                                $("#errregisterbtn").html("All Fields Are Required");
+                                                return false;
+                                            }
+                                            else if (document.getElementById("flag").value == "1") {
+                                                alert("Mobile Number Already Registered Please Enter Another Number")
+                                                return false;
+                                            }
+                                            else
+                                            {
+                                                $("#errregisterbtn").html("");
+                                               
+                                                return true;
+                                            }                                                                                                                                      
+                                        });
+                                    });
+                                </script>
+                                <div class="col-sm-6 col-sm-offset-4">
+                                    <input type="submit" name="Addsme" id="Addsme" value="Register" class="btn btn-embossed btn-primary" />
+                                    <div class="clearfix">
+                                        <p class="pull-right m-t-20" style="color:black;"><a href="index">Already have an account? Sign In</a></p>
+                                    </div>
+                                    <div id="errregisterbtn" style="color:red">@ViewBag.msg</div>                                                                      
+                                </div>
+                                <div class="col-sm-6">
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 50px;">
+                <p style="float: right;" class="account-copyright">
+                </p><span>Copyright © 2015 </span><span>mShipper</span>.<span>All rights reserved.</span>
+                <p></p>
+            </div>
+
+        </div>
+        <!-- END LOCKSCREEN BOX -->
+        <script src="assets/plugins/jquery/jquery-1.11.1.min.js"></script>
+        <script src="assets/plugins/jquery/jquery-migrate-1.2.1.min.js"></script>
+        <script src="assets/plugins/gsap/main-gsap.min.js"></script>
+        <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/plugins/icheck/icheck.min.js"></script>
+        <script src="assets/plugins/backstretch/backstretch.min.js"></script>
+        <script src="assets/plugins/bootstrap-loading/lada.min.js"></script>
+        <script src="assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src="assets/plugins/jquery-validation/additional-methods.min.js"></script>
+        <script src="assets/js/plugins.js"></script>
+        <script src="assets/js/pages/login-v1.js"></script>
+</body>
+
+</html>

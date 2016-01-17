@@ -1,0 +1,142 @@
+﻿@model SMEPanel.Models.Universal
+
+@{
+    ViewBag.Title = "MyPackage";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<h2>MyPackage</h2>
+
+ <!-- BEGIN PAGE CONTENT -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<div class="page-content page-thin">
+   
+    <div class="row">
+        
+        <div class="col-xlg-2 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="panel">
+                <div class="panel-content widget-info">
+                    <div class="row">
+                        <div class="left" style="padding-top: 90px;">
+                            <i class="fa fa-credit-card bg-green fa-2x"></i>
+                        </div>
+                        <div class="right">
+                            <p class="text"><b><h2>My Credit Package</h2></b></p>
+                          
+
+                            @foreach (var item in Model.objtblmypackage)
+                            {
+
+                                <div class="row"> <p class="text"><b><h3>Type:</h3></b>@item.credittype</p></div>
+                                <div class="row">
+                                    <h2>Rs.</h2> <p class="number countup" data-from="0" data-to=@item.amount></p>
+                                </div>
+                                    <p class="text"><h2>Subsciption Date</h2>@item.createdDate</p>
+                                    <p class="text"><h2>Updated Date</h2>@item.updated_date</p>
+                                    }
+
+
+
+                                    <p class="text"><b><h2>@ViewBag.mysub</h2></b></p>
+
+                                    <p class="" data-from="0" data-to="0" id="amount">@ViewBag.amount</p>
+                                    <p class="text"><h2>@ViewBag.msg</h2>
+
+
+
+                                </div>
+                    </div>
+                </div>
+                <center>
+                    <button type="button" id="btnUpdate" class="btn btn-success">Update</button>
+                </center>
+                
+                <link href="~/assets/sweetalert.css" rel="stylesheet" />
+                <script src="~/assets/sweetalert.min.js"></script>
+               <script type="text/javascript">
+                   $(document).ready(function () {
+                      
+                      
+                       $("#btnUpdate").click(function () {                         
+                           swal({ title: 'Contact us', text: 'Please contact to mShipper support.', type: 'success', showCancelButton: false, confirmButtonColor: '#b6ce38', confirmButtonText: 'Ok', closeOnConfirm: true }, function () {
+                               window.location.href = "/dashboard/Contact";
+                           });                                                                                                                                      
+                       })
+                   });
+               </script>
+            </div>
+        </div>
+
+    </div>
+    <div class="footer">
+        <div class="copyright">
+            <p class="pull-left sm-pull-reset">
+                <span>Copyright <span class="copyright">©</span> 2015 </span>
+                <span>mShipper</span>.
+                <span>All rights reserved. </span>
+            </p>
+            <p class="pull-right sm-pull-reset">
+                <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+  <!-- Modal -->
+<div id="modelval" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Message</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-5">
+                    <div class="col-sm-12">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+
+
+                                            <h4>Send Text Message On Their Mobile</h4>
+                                            <form action="@Url.Action("TrackUserMessage")" id="myform" method="post">
+
+                                                <input type="text" name="custid" id="custid" required readonly class="form-control" value="" />
+                                                @*<textarea class="form-control" name="subject" placeholder="Type subject For Message" required rows="1"></textarea>
+                                                    <textarea class="form-control counted" name="message" placeholder="Type in your message" required rows="5" style="margin-bottom:10px;"></textarea>*@
+
+                                                <textarea rows="5" class="form-control counted" name="message" required placeholder="Text Massage" type="text"></textarea>
+                                                <h6 class="pull-right" id="counter">320 characters </h6>
+                                                <br />
+                                                <input type="Submit" id="btn" class="btn btn-success" value="Send" />
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                            </form>
+                                            <div id="result">
+                                            </div>
+
+                                            <script type="text/javascript">
+
+                                            </script>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- END PAGE CONTENT -->
